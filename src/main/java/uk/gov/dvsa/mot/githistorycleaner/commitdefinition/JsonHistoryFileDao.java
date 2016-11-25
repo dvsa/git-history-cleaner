@@ -9,9 +9,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 public class JsonHistoryFileDao implements HistoryFileDao {
+
+    private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
     @Override
     public HistoryFile get(String filePath) {
-        Gson gson = new Gson();
         try {
             String historyFile = new String(Files.readAllBytes(Paths.get(filePath)));
             return gson.fromJson(historyFile, HistoryFile.class);
@@ -23,7 +25,6 @@ public class JsonHistoryFileDao implements HistoryFileDao {
     @Override
     public void save(String filePath, HistoryFile historyFile) {
         try {
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             PrintWriter out = new PrintWriter(filePath);
             out.println(gson.toJson(historyFile));
             out.close();

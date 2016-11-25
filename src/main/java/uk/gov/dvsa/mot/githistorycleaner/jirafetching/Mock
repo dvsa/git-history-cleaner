@@ -1,0 +1,279 @@
+{
+  "expand": "renderedFields,names,schema,transitions,operations,editmeta,changelog",
+  "id": "70096",
+  "self": "https://jira.i-env.net/rest/api/latest/issue/70096",
+  "key": "BL-4185",
+  "fields":
+  {
+    "fixVersions":
+    [
+
+    ],
+    "resolution": null,
+    "customfield_10500": 0.0,
+    "customfield_12404": null,
+    "customfield_10900": null,
+    "lastViewed": "2016-11-25T13:10:43.314+0000",
+    "priority":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/priority/3",
+      "iconUrl": "https://jira.i-env.net/images/icons/priorities/major.png",
+      "name": "3.Medium",
+      "id": "3"
+    },
+    "labels":
+    [
+
+    ],
+    "customfield_11700": null,
+    "customfield_11701": "2016-11-23T12:33:00.000+0000",
+    "timeestimate": null,
+    "aggregatetimeoriginalestimate": null,
+    "versions":
+    [
+
+    ],
+    "issuelinks":
+    [
+
+    ],
+    "assignee":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/user?username=badowskiw",
+      "name": "badowskiw",
+      "key": "badowskiw",
+      "emailAddress": "W.Badowski@kainos.com",
+      "avatarUrls":
+      {
+        "48x48": "https://jira.i-env.net/secure/useravatar?ownerId=badowskiw&avatarId=12567",
+        "24x24": "https://jira.i-env.net/secure/useravatar?size=small&ownerId=badowskiw&avatarId=12567",
+        "16x16": "https://jira.i-env.net/secure/useravatar?size=xsmall&ownerId=badowskiw&avatarId=12567",
+        "32x32": "https://jira.i-env.net/secure/useravatar?size=medium&ownerId=badowskiw&avatarId=12567"
+      },
+      "displayName": "Witomir Badowski",
+      "active": true,
+      "timeZone": "Europe/Berlin"
+    },
+    "status":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/status/11229",
+      "description": "",
+      "iconUrl": "https://jira.i-env.net/images/icons/status_generic.gif",
+      "name": "Open",
+      "id": "11229",
+      "statusCategory":
+      {
+        "self": "https://jira.i-env.net/rest/api/2/statuscategory/1",
+        "id": 1,
+        "key": "undefined",
+        "colorName": "medium-gray",
+        "name": "No Category"
+      }
+    },
+    "components":
+    [
+
+    ],
+    "customfield_12110": null,
+    "customfield_12111": null,
+    "customfield_12107": null,
+    "customfield_12106": null,
+    "customfield_12109": null,
+    "aggregatetimeestimate": null,
+    "creator":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/user?username=camposprietoj",
+      "name": "camposprietoj",
+      "key": "camposprietoj",
+      "emailAddress": "J.CamposPrieto@kainos.com",
+      "avatarUrls":
+      {
+        "48x48": "https://jira.i-env.net/secure/useravatar?ownerId=camposprietoj&avatarId=12565",
+        "24x24": "https://jira.i-env.net/secure/useravatar?size=small&ownerId=camposprietoj&avatarId=12565",
+        "16x16": "https://jira.i-env.net/secure/useravatar?size=xsmall&ownerId=camposprietoj&avatarId=12565",
+        "32x32": "https://jira.i-env.net/secure/useravatar?size=medium&ownerId=camposprietoj&avatarId=12565"
+      },
+      "displayName": "Jorge Camposprieto",
+      "active": true,
+      "timeZone": "Europe/Berlin"
+    },
+    "subtasks":
+    [
+
+    ],
+    "reporter":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/user?username=camposprietoj",
+      "name": "camposprietoj",
+      "key": "camposprietoj",
+      "emailAddress": "J.CamposPrieto@kainos.com",
+      "avatarUrls":
+      {
+        "48x48": "https://jira.i-env.net/secure/useravatar?ownerId=camposprietoj&avatarId=12565",
+        "24x24": "https://jira.i-env.net/secure/useravatar?size=small&ownerId=camposprietoj&avatarId=12565",
+        "16x16": "https://jira.i-env.net/secure/useravatar?size=xsmall&ownerId=camposprietoj&avatarId=12565",
+        "32x32": "https://jira.i-env.net/secure/useravatar?size=medium&ownerId=camposprietoj&avatarId=12565"
+      },
+      "displayName": "Jorge Camposprieto",
+      "active": true,
+      "timeZone": "Europe/Berlin"
+    },
+    "customfield_12101": null,
+    "aggregateprogress":
+    {
+      "progress": 0,
+      "total": 0
+    },
+    "customfield_11410": null,
+    "customfield_12103": null,
+    "customfield_12102": null,
+    "customfield_12105": null,
+    "customfield_11411": null,
+    "customfield_12104": null,
+    "customfield_12500": "0|i08xil:ev",
+    "customfield_12217": null,
+    "customfield_11403": null,
+    "customfield_11402": null,
+    "customfield_11405": null,
+    "customfield_11404": null,
+    "customfield_11407": null,
+    "customfield_11406": null,
+    "customfield_11802": null,
+    "customfield_11409": null,
+    "customfield_11408": null,
+    "progress":
+    {
+      "progress": 0,
+      "total": 0
+    },
+    "votes":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/issue/BL-4185/votes",
+      "votes": 0,
+      "hasVoted": false
+    },
+    "worklog":
+    {
+      "startAt": 0,
+      "maxResults": 20,
+      "total": 0,
+      "worklogs":
+      [
+
+      ]
+    },
+    "issuetype":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/issuetype/7",
+      "id": "7",
+      "description": "Created by JIRA Agile - do not edit or delete. Issue type for a user story.",
+      "iconUrl": "https://jira.i-env.net/images/icons/ico_story.png",
+      "name": "Story",
+      "subtask": false
+    },
+    "timespent": null,
+    "project":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/project/11804",
+      "id": "11804",
+      "key": "BL",
+      "name": "DVSA MOT - Beta > Live",
+      "avatarUrls":
+      {
+        "48x48": "https://jira.i-env.net/secure/projectavatar?pid=11804&avatarId=10131",
+        "24x24": "https://jira.i-env.net/secure/projectavatar?size=small&pid=11804&avatarId=10131",
+        "16x16": "https://jira.i-env.net/secure/projectavatar?size=xsmall&pid=11804&avatarId=10131",
+        "32x32": "https://jira.i-env.net/secure/projectavatar?size=medium&pid=11804&avatarId=10131"
+      }
+    },
+    "customfield_12211": null,
+    "customfield_12210": null,
+    "customfield_12213": null,
+    "aggregatetimespent": null,
+    "customfield_11003":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/customFieldOption/10901",
+      "value": "No",
+      "id": "10901"
+    },
+    "customfield_12212": null,
+    "customfield_11401": null,
+    "customfield_12215": null,
+    "customfield_11400": null,
+    "customfield_12214": null,
+    "customfield_12206": null,
+    "customfield_12205": null,
+    "customfield_12208": null,
+    "customfield_10701": null,
+    "customfield_12207": null,
+    "customfield_12209": null,
+    "resolutiondate": null,
+    "workratio": -1,
+    "watches":
+    {
+      "self": "https://jira.i-env.net/rest/api/2/issue/BL-4185/watchers",
+      "watchCount": 1,
+      "isWatching": false
+    },
+    "created": "2016-11-23T12:33:20.269+0000",
+    "customfield_12204": null,
+    "customfield_12203": null,
+    "customfield_10259":
+    [
+
+      {
+        "self": "https://jira.i-env.net/rest/api/2/customFieldOption/10287",
+        "value": "Business",
+        "id": "10287"
+      }
+    ],
+    "customfield_11900": null,
+    "customfield_11902": null,
+    "customfield_11901": null,
+    "customfield_11904": null,
+    "customfield_11903": null,
+    "customfield_11906": null,
+    "customfield_11905": null,
+    "customfield_11908": null,
+    "customfield_11907": null,
+    "updated": "2016-11-23T14:31:32.142+0000",
+    "timeoriginalestimate": null,
+    "description": null,
+    "timetracking":
+    {
+
+    },
+    "customfield_10005":
+    [
+      "com.atlassian.greenhopper.service.sprint.Sprint@2b61e90e[id=1063,rapidViewId=368,state=ACTIVE,name=G - 54,startDate=2016-11-24T08:06:15.663Z,endDate=2016-12-07T08:06:00.000Z,completeDate=<null>,sequence=1063]"
+    ],
+    "customfield_10006": "BL-4182",
+    "customfield_10248": null,
+    "customfield_10800": "*Given ...*\r\n*When ...*\r\n*Then ...*",
+    "attachment":
+    [
+
+    ],
+    "summary": "Merge analysis - Extract JIRA ticket number",
+    "customfield_10000": null,
+    "customfield_10001": null,
+    "customfield_10002": 3.0,
+    "customfield_10245": null,
+    "customfield_10003": null,
+    "customfield_10246": null,
+    "customfield_10004": "9223372036854775807",
+    "environment": null,
+    "customfield_10119": null,
+    "duedate": null,
+    "comment":
+    {
+      "startAt": 0,
+      "maxResults": 0,
+      "total": 0,
+      "comments":
+      [
+
+      ]
+    }
+  }
+}

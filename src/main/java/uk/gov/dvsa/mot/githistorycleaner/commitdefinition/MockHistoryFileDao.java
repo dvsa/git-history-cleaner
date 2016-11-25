@@ -4,9 +4,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class MockHistoryFileDao implements HistoryFileDao {
     @Override
-    public void save(String filePath, HistoryFile historyFile) {
-        throw new NotImplementedException();
-    }
+    public void save(String filePath, HistoryFile historyFile) {}
 
     @Override
     public HistoryFile get(String filePath) {
