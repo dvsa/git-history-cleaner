@@ -16,7 +16,7 @@ public class MockHistoryFileDao implements HistoryFileDao {
         item.setHash("c63c5d1d71655fba1ae4678383a7078ec099192c");
         item.setOriginalMessage("This is mocked commit");
         item.setOutputMessage("The messaged");
-        item.setStoryNumber("BL-1004");
+        item.getStoryNumbers().add("BL-1004");
 
         file.getItems().add(item);
 

@@ -1,10 +1,13 @@
 package uk.gov.dvsa.mot.githistorycleaner.commitdefinition;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HistoryItem {
     private String hash = "";
     private String originalMessage = "";
-    private String outputMessage = "??";
-    private String storyNumber= "";
+    private String outputMessage = "";
+    private List<String> storyNumbers = new ArrayList<>();
     private String date = "";
 
     public String getHash() {
@@ -31,12 +34,12 @@ public class HistoryItem {
         this.outputMessage = outputMessage;
     }
 
-    public String getStoryNumber() {
-        return storyNumber;
+    public List<String> getStoryNumbers() {
+        return storyNumbers;
     }
 
-    public void setStoryNumber(String storyNumber) {
-        this.storyNumber = storyNumber;
+    public void setStoryNumbers(List<String> storyNumbers) {
+        this.storyNumbers = storyNumbers;
     }
 
     public String getDate() {

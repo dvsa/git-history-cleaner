@@ -8,16 +8,16 @@ import uk.gov.dvsa.mot.githistorycleaner.git.GitShellClient;
 import uk.gov.dvsa.mot.githistorycleaner.historyrewriting.Rewriter;
 import uk.gov.dvsa.mot.githistorycleaner.initialsquashing.InitialSquasher;
 import uk.gov.dvsa.mot.githistorycleaner.jirafetching.Fetcher;
-import uk.gov.dvsa.mot.githistorycleaner.logging.ConsoleLogger;
-import uk.gov.dvsa.mot.githistorycleaner.logging.Logger;
 import uk.gov.dvsa.mot.githistorycleaner.mergeanalysis.MergeAnalyser;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Main {
+    private static Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-        Logger logger = new ConsoleLogger();
-
         if (args.length == 0) {
             logger.error("Unrecognized module");
             return;
