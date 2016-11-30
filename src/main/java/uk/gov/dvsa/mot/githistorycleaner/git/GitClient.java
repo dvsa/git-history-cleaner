@@ -8,4 +8,5 @@ public interface GitClient {
     void checkoutCommit(String repoPath, String commit);
     void commit(String repoPath, String message);
     void mergeBranch(String repoPath, String currentBranch, String mergedBranch);
+    String getLog(String repoPath, String params);
 }

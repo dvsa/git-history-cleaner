@@ -57,4 +57,9 @@ public class GitShellClient implements GitClient {
     public void applyPatch(String repoPath, String patchPath) {
         throw new NotImplementedException();
     }
+
+    @Override
+    public String getLog(String repoPath, String params) {
+        return shell.ExecuteCommand(repoPath, "git log " + params);
+    }
 }

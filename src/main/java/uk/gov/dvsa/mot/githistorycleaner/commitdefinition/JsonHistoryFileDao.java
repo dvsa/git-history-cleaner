@@ -1,6 +1,7 @@
 package uk.gov.dvsa.mot.githistorycleaner.commitdefinition;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +23,7 @@ public class JsonHistoryFileDao implements HistoryFileDao {
     @Override
     public void save(String filePath, HistoryFile historyFile) {
         try {
-            Gson gson = new Gson();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
             PrintWriter out = new PrintWriter(filePath);
             out.println(gson.toJson(historyFile));
             out.close();
