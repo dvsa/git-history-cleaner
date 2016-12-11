@@ -1,23 +1,24 @@
 package uk.gov.dvsa.mot.githistorycleaner.mergeanalysis;
 
-import uk.gov.dvsa.mot.githistorycleaner.Main;
+import org.slf4j.Logger;
+import uk.gov.dvsa.mot.githistorycleaner.JsonFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.Module;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFile;
-import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
-import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.JsonHistoryFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
-import uk.gov.dvsa.mot.githistorycleaner.git.GitShellClient;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MergeAnalyser implements Module {
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private GitClient git;
+    private static Logger logger;
     private static HistoryItemFromCommitMapper historyItemFromCommitMapper = new HistoryItemFromCommitMapper();
+
+    public MergeAnalyser (GitClient git, Logger logger) {
+        this.git = git;
+        this.logger = logger;
+    }
 
     @Override
     public void execute(String[] args) {
@@ -29,15 +30,14 @@ public class MergeAnalyser implements Module {
         HistoryFile historyFile = new HistoryFile();
         historyFile.setItems(history);
 
-        HistoryFileDao dao = new JsonHistoryFileDao();
+        JsonFileDao dao = new JsonFileDao<>(HistoryFile.class);
         dao.save(historyFilePath, historyFile);
         logger.info(historyFilePath + " saved");
     }
 
     private List<HistoryItem> getMergesAndDirectCommitsToMaster(String gitRepositoryPath, String firstCommitHash) {
-        GitClient gitClient = new GitShellClient();
 
-        String log = gitClient.getLog(gitRepositoryPath, "--first-parent");
+        String log = git.log(gitRepositoryPath, "--first-parent");
         logger.info("Git log fetched for repository: " + gitRepositoryPath);
 
         String[] commits = log.split(System.lineSeparator() + System.lineSeparator() + "commit");

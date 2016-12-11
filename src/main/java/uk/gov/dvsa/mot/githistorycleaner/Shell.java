@@ -1,5 +1,7 @@
 package uk.gov.dvsa.mot.githistorycleaner;
 
+import org.slf4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -7,9 +9,16 @@ import java.io.InputStreamReader;
 
 public class Shell {
     Runtime r = Runtime.getRuntime();
+    Logger logger;
 
-    public String ExecuteCommand(String dir, String command) {
+    public Shell(Logger logger) {
+        this.logger = logger;
+    }
+
+    public String executeCommand(String dir, String command) {
         try {
+            logger.info("GIT dir: " + dir);
+            logger.info("GIT EXECUTE: " + command);
             Process p = r.exec(command, null, new File(dir));
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
@@ -20,15 +29,20 @@ public class Shell {
                 sb.append(line + "\n");
             }
 
+            String output = sb.toString();
+
             p.waitFor();
-            return sb.toString();
-        } catch (IOException | InterruptedException e) {
+            return output;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
 
     public String executeCommandArray(String dir, String... command) {
         try {
+            logger.info("GIT EXECUTE: " + String.join(" ", command));
             ProcessBuilder ps = new ProcessBuilder(command);
             ps.directory(new File(dir));
             ps.redirectErrorStream(true);
@@ -44,8 +58,13 @@ public class Shell {
             }
 
             pr.waitFor();
-            return stringBuffer.toString();
-        } catch (IOException | InterruptedException e) {
+
+            String output = stringBuffer.toString();
+
+            return output;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

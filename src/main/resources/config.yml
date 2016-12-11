@@ -1,0 +1,13 @@
+publicRepository:
+  path: "~/MOTDEV/test_repo2"
+  authorName: "DVSA <dvsa@dvsa.go.uk>"
+  #must be as json file
+  publishingHistoryFileName: "patch_history.json"
+
+privateRepository:
+  path: "~/MOTDEV/mot"
+  patchFilePath: "/tmp/patch.patch"
+
+jira:
+  ticketNumberFormat: "((vm|bl|BL|MDM|VM)-[0-9]{1,6})"
+

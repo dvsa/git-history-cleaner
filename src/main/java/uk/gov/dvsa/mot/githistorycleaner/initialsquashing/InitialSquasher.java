@@ -46,7 +46,7 @@ public class InitialSquasher implements Module {
     }
 
     private String pushToTheNewOrigin(String dir, String secondRepoUrl) {
-        String currentRemote = shell.ExecuteCommand(dir, "git ls-remote --get-url");
+        String currentRemote = shell.executeCommand(dir, "git ls-remote --get-url");
         if(!currentRemote.trim().equals(secondRepoUrl.trim())){
             logger.error(String.format("Remote repo url was not set. Should be %s, but is %s", secondRepoUrl, currentRemote));
             throw new RuntimeException();

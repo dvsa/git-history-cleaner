@@ -1,4 +1,4 @@
-package uk.gov.dvsa.mot.githistorycleaner.commitdefinition;
+package uk.gov.dvsa.mot.githistorycleaner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -8,25 +8,27 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class JsonHistoryFileDao implements HistoryFileDao {
-
+public class JsonFileDao<T> {
     private Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private Class<T> type;
 
-    @Override
-    public HistoryFile get(String filePath) {
+    public JsonFileDao(Class<T> type) {
+        this.type = type;
+    }
+
+    public T get(String filePath) {
         try {
             String historyFile = new String(Files.readAllBytes(Paths.get(filePath)));
-            return gson.fromJson(historyFile, HistoryFile.class);
+            return gson.fromJson(historyFile, type);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    @Override
-    public void save(String filePath, HistoryFile historyFile) {
+    public void save(String filePath, T file) {
         try {
             PrintWriter out = new PrintWriter(filePath);
-            out.println(gson.toJson(historyFile));
+            out.println(gson.toJson(file));
             out.close();
         } catch (IOException e) {
             throw new RuntimeException(e);

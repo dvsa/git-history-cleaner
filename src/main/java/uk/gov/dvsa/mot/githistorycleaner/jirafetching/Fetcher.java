@@ -1,11 +1,10 @@
 package uk.gov.dvsa.mot.githistorycleaner.jirafetching;
 
+import org.slf4j.Logger;
+import uk.gov.dvsa.mot.githistorycleaner.JsonFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.Module;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFile;
-import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
-
-import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +14,13 @@ public class Fetcher implements Module {
     private static final String TITLE_UNKNOWN = "##TITLE_UNKNOWN";
     private JiraDao jiraDao;
     private Logger logger;
-    private HistoryFileDao historyFileDao;
+    private JsonFileDao<HistoryFile> historyFileDao;
     private CommitMessageAnalyser commitMessageAnalyser;
 
     public Fetcher(
             JiraDao jiraDao,
             Logger logger,
-            HistoryFileDao historyFileDao,
+            JsonFileDao<HistoryFile> historyFileDao,
             CommitMessageAnalyser commitMessageAnalyser
     ) {
         this.jiraDao = jiraDao;
