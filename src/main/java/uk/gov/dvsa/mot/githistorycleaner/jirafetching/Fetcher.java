@@ -1,10 +1,11 @@
 package uk.gov.dvsa.mot.githistorycleaner.jirafetching;
 
-import org.slf4j.Logger;
 import uk.gov.dvsa.mot.githistorycleaner.JsonFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.Module;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFile;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
+
+import org.slf4j.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,18 +49,11 @@ public class Fetcher implements Module {
 
                 logger.info(String.format("Processing commit: %s - %s", historyItem.getOriginalMessage(), historyItem.getHash()));
                 ArrayList<String> ticketNumbers = commitMessageAnalyser.getJiraTicketNumberFromCommitMessage(historyItem.getOriginalMessage());
-                ArrayList<String> outputMessages = new ArrayList<>();
-                for(String ticketNumber: ticketNumbers){
-                    outputMessages.add(getJiraTitle(ticketNumber));
-                }
+                ArrayList<String> outputMessages = getOutputMessages(ticketNumbers);
 
                 historyItem.setStoryNumbers(ticketNumbers);
                 historyItem.setOutputMessage(String.join("; ", outputMessages));
-                if(outputMessages.size() > 0){
-                    logger.info(String.format("Found ticket %s - %s", historyItem.getStoryNumbers(), historyItem.getOutputMessage()));
-                } else {
-                    logger.info("No ticket numbers in commit message");
-                }
+                printTicketStatus(historyItem, outputMessages);
 
                 historyFileDao.save(historyFileName, historyFile);
             }
@@ -68,6 +62,23 @@ public class Fetcher implements Module {
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
+        }
+    }
+
+    private ArrayList<String> getOutputMessages(ArrayList<String> ticketNumbers) throws Exception {
+        ArrayList<String> outputMessages = new ArrayList<>();
+        for(String ticketNumber: ticketNumbers){
+            outputMessages.add(getJiraTitle(ticketNumber));
+        }
+
+        return outputMessages;
+    }
+
+    private void printTicketStatus(HistoryItem historyItem, ArrayList<String> outputMessages) {
+        if(outputMessages.size() > 0){
+            logger.info(String.format("Found ticket %s - %s", historyItem.getStoryNumbers(), historyItem.getOutputMessage()));
+        } else {
+            logger.info("No ticket numbers in commit message");
         }
     }
 

@@ -1,0 +1,1118 @@
+[
+  {
+    "hash": "3ed6efb03cdab0d1a3c0133a104d144652fc74df",
+    "message": "Add the correct urls for the test-support config dist file"
+  },
+  {
+    "hash": "14ec3117d58ed998d7f39b9de9a337492adc359f",
+    "message": "Promotion 2.11 bump version"
+  },
+  {
+    "hash": "4616a7092da05eb4d48c379229b4dad33785cd78",
+    "message": "Reduce the amount of times the personal details endpoint is run"
+  },
+  {
+    "hash": "4f91530e40dbbbab752e79203042e2c916c5164a",
+    "message": "Check if the the response has a body before using it in the mot-api client"
+  },
+  {
+    "hash": "454027125fac8a7d6c29e78820d5e972b5a7922b",
+    "message": "EPIC - duplicate certificate"
+  },
+  {
+    "hash": "7e7bb8354dbaf66941db9ab7a830a2797cec9db0",
+    "message": "added a new docker properties file for running selenium in a docker container"
+  },
+  {
+    "hash": "8ef3f504d7e2980809148830a6e140829e159b8f",
+    "message": "Fix unexpected appearance of error pod on top of the mot test certificate summary page"
+  },
+  {
+    "hash": "d360516ef49fa7be42d26d21ee6b97d5ed6cde22",
+    "message": "fixed composer.json post instal cmd - wrong file was beeing copied"
+  },
+  {
+    "hash": "8fce9e3275e4a29eff62434cd791c18fb77ea022",
+    "message": "hotfix - adding styles missing from 0.10.3 assets into head to enable rfrs to appear correctly when old asset files are cached"
+  },
+  {
+    "hash": "57901402ce5225580f9e67e821a8a52825d354d4",
+    "message": "Update version to \"2.10.0\""
+  },
+  {
+    "hash": "2c02af061945a4e00efe8822dfacdd6e1ec90642",
+    "message": "Fix: behat tests fail when updating site number."
+  },
+  {
+    "hash": "6a2235b9b154d5f1ff016e9f49431f28f6ea914c",
+    "message": "Disabled 2 survey tests because of collision during test data creation"
+  },
+  {
+    "hash": "a9e6223bab85a01f71289fe1d68f071522e4c3d1",
+    "message": "Added dependsOnMethod dependency for SurveyTests"
+  },
+  {
+    "hash": "57f1f6c31125ad995dea03a4442041f85a312033",
+    "message": "turn off sonar"
+  },
+  {
+    "hash": "45b468b9b5d3272332016710162f845aacd3b4ae",
+    "message": "Fixed GDS survey unit test failing when they are run on 29,30,31 day of each month due to inproper date object creation"
+  },
+  {
+    "hash": "64abd1e3c9cab0127766f8c703a3e797d2fc741f",
+    "message": "bug - mot-api tqi unit tests fix"
+  },
+  {
+    "hash": "95c717013b908d691933177ede20c67b3f2b252a",
+    "message": "Update version to \"2.9.0\""
+  },
+  {
+    "hash": "9b7255a27bc57c8f808fdbe06224efccdf809761",
+    "message": "Fixed selenium deadlock"
+  },
+  {
+    "hash": "e52af115d63935f828d747b847cd1ada6e434494",
+    "message": "Fix vehicle reponse to include isIncognito in selenium"
+  },
+  {
+    "hash": "3eb19772f1e749eebe040bd8e6f626d19ed504cf",
+    "message": "Feature/move userdata into mot api"
+  },
+  {
+    "hash": "895703d13a44d2e1d4632050d9594c6ca536afbc",
+    "message": "Update in MotSurveyTests class - added priority to the teststo avoid overlapping during parallel execution"
+  },
+  {
+    "hash": "df9acec4b9ad67c3ba70574b4dfd140f31fdbe3a",
+    "message": "Fixed mot-web-frontend/module/Application/test/DvsaMotTestTest/Controller/RefuseToTestControllerTest.php\\"
+  },
+  {
+    "hash": "cbc6d854efbf8dac67120e41672ab24b59fa56eb",
+    "message": "[OPSTEAM-133] Use a post-install command to set the executable bit on the jenkins scripts composer installs (originally from dvsa-script"
+  },
+  {
+    "hash": "0204743f8915fd024da353bd43b7edcf73b1699f",
+    "message": "Fixed mot-web-frontend/module/Application/test/DvsaMotEnforcementTest/Controller/MotTestSearchControllerTest.php"
+  },
+  {
+    "hash": "f8d26375a835f24ef12b8884575b5d1ed18ebae8",
+    "message": "Fixed unit test mot-web-frontend/module/Account/test/AccountTest/Controller/PasswordResetControllerTest.php"
+  },
+  {
+    "hash": "2d306103e883ec571159e6baed9af2087a0ccccc",
+    "message": "Update version to \"2.8.0\""
+  },
+  {
+    "hash": "941d966f336f8f22e0e23cd3d024909ddbff1ff6",
+    "message": "Removed skipped unit tests. Left most recent ones to be addressed by AliB"
+  },
+  {
+    "hash": "a6d4b2cd60cca81df370bf7274852591a1aab907",
+    "message": "Add test OpenDJ data as ldif"
+  },
+  {
+    "hash": "5c6e5900cb66d49685fba10d7500743567e95264",
+    "message": "Reverted apply_updates.sh fix"
+  },
+  {
+    "hash": "992dc0666acb822f4786f763bed45934447119a1",
+    "message": "Change to apply updates to check for missing upgrade scrip"
+  },
+  {
+    "hash": "24da71f23d6c82e12b7f3e424849d67d8f87b5fe",
+    "message": "jenkinsfile: ruby path fix"
+  },
+  {
+    "hash": "ab217fd950c36841f5d0e2c8ae8c8bef8aca7cd5",
+    "message": "JenkinsFile for MB pipeline"
+  },
+  {
+    "hash": "7cfb55d0030f1308f10a063719657393abcd3d13",
+    "message": "change cd to dir"
+  },
+  {
+    "hash": "c997f8bbb242b0b05780c08cf85d144da42cd6e5",
+    "message": "Epic - edit vtr"
+  },
+  {
+    "hash": "97330d2414cffdbbf2f6fc9e01bd074d042d95ad",
+    "message": "Chranging directory is important. This ensures we are in the correct directory to run the DB updates.\n"
+  },
+  {
+    "hash": "0243f2dda53bbbed0557c477e9626e38ed2ef690",
+    "message": "Adding script to apply all update scripts."
+  },
+  {
+    "hash": "f95ba1ca0a2e5fee1aa84f631c7161b27e2af60b",
+    "message": "added reset db change"
+  },
+  {
+    "hash": "25873665139042702129ec64fadef6d703e67db3",
+    "message": "Backed out the change to test support data generation helper randomizer"
+  },
+  {
+    "hash": "2723b951391b53177a7dcad67053b676cf5b5895",
+    "message": "Increased randomness of testsupport randomizers - person and security card data generator"
+  },
+  {
+    "hash": "c7288a7328c2c5ed3cd9849dea1248e5e16d94d0",
+    "message": "path fix"
+  },
+  {
+    "hash": "77c01b4fb1572aeda3a986eec71555a2974bd233",
+    "message": "changed ruby path"
+  },
+  {
+    "hash": "7e515e4057a8d42bae5bf639245e9e757f3c3472",
+    "message": "Updated test cases to avoid skipping during execution"
+  },
+  {
+    "hash": "24218f73f149fe26b6665e07cdea048cbb736cbe",
+    "message": "Update version to \"2.7.0-DEV\""
+  },
+  {
+    "hash": "0b69903ceedc2db5f2dd5a24417e11c8ef77e4ff",
+    "message": "Update version to \"2.6.0-DEV\""
+  },
+  {
+    "hash": "783bf20948a725be61cdfdee76f3c077033b4418",
+    "message": "Update version to \"2.6.0\""
+  },
+  {
+    "hash": "958a72a72a77114e8317b02e8d2bd95b3e33de28",
+    "message": "Extended constructor for test data creation"
+  },
+  {
+    "hash": "02872fd3f3551fc0291b515017a3d74c69af6c97",
+    "message": "db_upgrade.sh does not detect missing SQL files"
+  },
+  {
+    "hash": "acfd7838124373856031087384abe4a9ce334131",
+    "message": "grunt - fix testsupport config after switch branch"
+  },
+  {
+    "hash": "001e24be5aa7013fcdd5097165fd48762068dade",
+    "message": "bugfix - missing featuretoggle check for sidebar card activation link"
+  },
+  {
+    "hash": "7ad2aab236cbb0b6b8721b07689ff2fa7b788bb0",
+    "message": "Fix failing test on master"
+  },
+  {
+    "hash": "a71eb441984d826411cd0d51e093fc585d1fb49f",
+    "message": "MOT checklist selenium refactor"
+  },
+  {
+    "hash": "b64ce8ff15a0134ca0bc064705c6f8c51d15d3ae",
+    "message": "Add twoFactor awareness to controller. Switch display in confirm-nomination based on two factor status"
+  },
+  {
+    "hash": "8d348d41d02ceb8936472c684b81bff3df32927e",
+    "message": "changes for parallel behat runs\n"
+  },
+  {
+    "hash": "7a56f99f4318801081d2b6c71f611396a0f3d875",
+    "message": " grunt - dev-tools enable/disable"
+  },
+  {
+    "hash": "a83e2c5af0d9ea2b7ea9d954572ed976dc674b53",
+    "message": "Improve unit test coverage of MotTestModule"
+  },
+  {
+    "hash": "9ec00b6bfcf49059e3dac882914e5ae8472fe80d",
+    "message": "Revert \"Merge branch 'revert-c6413644' into 'master'\""
+  },
+  {
+    "hash": "901a63cb81f0eecacfcf8bcdfd9c35586bc58604",
+    "message": "Show confirmation screen only when 2fa is on"
+  },
+  {
+    "hash": "016366efc962a69863930541546e20f2b186a21d",
+    "message": "hotfix syntax"
+  },
+  {
+    "hash": "dcc6a413a29683ed71bd88e6a18a25432d8bfdfa",
+    "message": "changes to promote rpms from CI2 to CI"
+  },
+  {
+    "hash": "3290bf1b842732089fb1b0921ceae7b401d5c4de",
+    "message": "grunt - trace vehicle service logs"
+  },
+  {
+    "hash": "aff7ab4ae81c7d83979793d2192ed6bf22836e15",
+    "message": "Reinstating OldRfrTest annotation"
+  },
+  {
+    "hash": "7d51742a8da8dd79afd5f50b54c4c37c00654c92",
+    "message": "2FA scripts fix"
+  },
+  {
+    "hash": "d34da41572dc14259752d49605333b2c297e9172",
+    "message": "Fix defect categories columns when five are displayed"
+  },
+  {
+    "hash": "ac8ae0223f4b6c88b38b72aebd67bd57331c36b4",
+    "message": "Invoking CI2 build"
+  },
+  {
+    "hash": "06512a8beecc5a938f4292f159cea14e86868290",
+    "message": "Adding 2FA"
+  },
+  {
+    "hash": "824530f837897c227b2eb36a4fd18d9d969b351a",
+    "message": "Code cleanup"
+  },
+  {
+    "hash": "2c39c0669635947f7dff02b850404029da3e2ee1",
+    "message": "Jenkins/test webhooks 2"
+  },
+  {
+    "hash": "26ede64a71a10e86f1dda124a28c9825e67aba17",
+    "message": "Jenkins/test webhooks"
+  },
+  {
+    "hash": "42f8d022b16cfea0c4679e008b650ac7f57c5d00",
+    "message": "Jenkins/test webhooks"
+  },
+  {
+    "hash": "9a34617bd7f0d5f30c0e54a48bf2958564b98675",
+    "message": "grunt - add trace of apache error logs for api and wfe"
+  },
+  {
+    "hash": "c7c96e78553a6a10df69c05cd890b554fc20a10f",
+    "message": "grunt - add some trace commands"
+  },
+  {
+    "hash": "6de93d093cc7fa4b7061c9426c45a6078f53487d",
+    "message": "Removed archive artefacts step from jenkinsfile"
+  },
+  {
+    "hash": "cabb1c19833363b8f9b001620f5409e394e49cd4",
+    "message": "Merge develop into master to bring them up to date with each other"
+  },
+  {
+    "hash": "52241bf7af37cd892a8674cdcd5372eaf763b870",
+    "message": "ArtifactArchiver for selenium screenshots"
+  },
+  {
+    "hash": "c0a225624896333fe78903892c58d67700e56b06",
+    "message": "Merge branch 'develop'"
+  },
+  {
+    "hash": "771d741e3b238266cb9b5ab614a3595a2e20a458",
+    "message": "Bumping version to 2.3.0-Dev"
+  },
+  {
+    "hash": "78b118e53ee4481df3a724386ba6b9ab02dd056b",
+    "message": "Merge develop"
+  },
+  {
+    "hash": "8382d40923f41b86422fbeb3c935b00621e62bda",
+    "message": "Merge branch 'develop'"
+  },
+  {
+    "hash": "00461dd2c699ce005dd1d89ed44906568947753e",
+    "message": "Bump version to 1.30.0"
+  },
+  {
+    "hash": "1fc2540086b17e64f47d84a20399f6106bcdc2be",
+    "message": "Merge tag '1.30.0'"
+  },
+  {
+    "hash": "88b36c28ad1896f0262d4b60691c1603d5d7d032",
+    "message": "Merge tag '1.29.0'. Release 1.29.0"
+  },
+  {
+    "hash": "be443d382c477e225f684b2e4d822d585c81f775",
+    "message": "Changed version to 1.28.0 on master"
+  },
+  {
+    "hash": "28fa28f144d15bb72a224d64ad9af098a3e8d0bc",
+    "message": "Fix phpunit hardcoded date of birth"
+  },
+  {
+    "hash": "8c85d5799f400c6b508ba032ed5f526a3badd78e",
+    "message": "added grunt tasks to restart mysql, opendj and tomcat"
+  },
+  {
+    "hash": "e862a4ca1b3842a2457cc2954b430418d8dee72f",
+    "message": "Automation/fix reason for rejection2 test regression"
+  },
+  {
+    "hash": "608f3ddeb6e36399e5a95ac89d3aeb83851ced7a",
+    "message": "Update version to \"1.28.0-DEV\""
+  },
+  {
+    "hash": "668d78e2fde2901504413e2ebbe36e8f9897c03a",
+    "message": "Update version to \"1.27.0\""
+  },
+  {
+    "hash": "c3f28f49bca460f0bb304aa35634d31abcf65f50",
+    "message": "Added grunt puppet_apply task to refresh VMs with configs"
+  },
+  {
+    "hash": "4904131e18c23f78bd660345c87564df59149d3d",
+    "message": "Fix for selenium test: addManualAdvisoryWithProfanityDescriptionAndPressCancelAndAddSuccessfully"
+  },
+  {
+    "hash": "8b100f6c6c830a5d268fc65d9d435f41b1861a10",
+    "message": "Fix for selenium configurator when executed locally"
+  },
+  {
+    "hash": "e369f6121fdda9ba9f99874e043b9709c2706341",
+    "message": "Move app version declaration from release-tag.php to Version class"
+  },
+  {
+    "hash": "364e4bf8b4703a0984bc62da6b1eae395a850a02",
+    "message": "Removed RoleRefresherService from API as not used anymore"
+  },
+  {
+    "hash": "77f2b037733a065d2d53c53bf97bd74f6ce9700d",
+    "message": "Fixed MailerApiTest\\Logic\\PasswordReminderTest::* tests"
+  },
+  {
+    "hash": "dab46c3d5fb8d98f24bbaa0ca62e1fbcd7e64178",
+    "message": "Fixed ClaimAccountReminderTest::testSendingWithUserId"
+  },
+  {
+    "hash": "11de505a1763a41ef7aa66a72c09277c4f0349d5",
+    "message": "Fixed  DvsaMotApiTest\\Service\\CertificateExpiryServiceTest.testCheckVehicleWithNoTestHavingExpiryDate"
+  },
+  {
+    "hash": "027f64648de3895e3182fb92f8eb8eef315fae2d",
+    "message": "Preparation for the  ZF's validator new behaviour coming up on version 2.4.8"
+  },
+  {
+    "hash": "ecec56875209b06a53b14ed490546ea141eea258",
+    "message": "Removed long unused NotLoggedInException"
+  },
+  {
+    "hash": "2dc2aa72a10fe08ae5c5453e687b72307d895b84",
+    "message": "Update release tag to \"1.26.0\""
+  },
+  {
+    "hash": "f0ce8e58d4088ddf8a266a60755a8b74cf552667",
+    "message": "Automation/Add Error Logging To Selenium Api Client"
+  },
+  {
+    "hash": "efa00e8786b329141149eb366cb156e76a34a6ff",
+    "message": "Update release tag to \"1.26.0-DEV\""
+  },
+  {
+    "hash": "67e1694cda47f19cb853c756f85ab458ab2c29f3",
+    "message": "Port More Grunt To New Env"
+  },
+  {
+    "hash": "547e0014895dbc52f4931b318fa38477d3cafe07",
+    "message": "Removing Grunt Migration Code"
+  },
+  {
+    "hash": "0e12acd5e803aff0896193b0b7fa81f4151f14eb",
+    "message": "Update release tag to \"1.25.0\""
+  },
+  {
+    "hash": "14b72693037cd6a8c957cd7a6eb9c7d8a3a7bb16",
+    "message": "Remove mot-jobs/async_certificate_housekeeping.sh as it's not needed anymore"
+  },
+  {
+    "hash": "9f9d8ddb43fcd3632d135b2e732e6f9ab9191900",
+    "message": "Update release tag to \"1.25.0-DEV\""
+  },
+  {
+    "hash": "94f85160b12d8da29a9b1881e503b0ae54604a73",
+    "message": "Updating getKeyCmd for grunt to make it compatible with vagrants >=1.8"
+  },
+  {
+    "hash": "405636a44134cb830d30813018fe82326dc5ce24",
+    "message": "Merge branch 'support/1.24' into develop"
+  },
+  {
+    "hash": "9cae91601f63a5a94c2a2e0ea70d54d454837063",
+    "message": "Update release tag to \"1.24.0\""
+  },
+  {
+    "hash": "24815560158419950166ffc0fbc8a923bad702cd",
+    "message": "Disable New Person Profile Ft By Default"
+  },
+  {
+    "hash": "663e7e1139a28402599c28d06d844e034b4e9669",
+    "message": "Fix Phpunit Test For 447"
+  },
+  {
+    "hash": "004bfabe959dcfb2b5fb9a835b385273092ffc39",
+    "message": "Feature/Add Deprecation Notice To Web Url Builder Classes"
+  },
+  {
+    "hash": "e93af2cdc22ca4d3939e0c78253a01a3d6f57c6f",
+    "message": "Automation/Migrate Legacycode To New Framework"
+  },
+  {
+    "hash": "e3d82d7e0106d8157924563a0711a01b050821d7",
+    "message": "Update release tag to \"1.24.0-DEV\""
+  },
+  {
+    "hash": "6f479799a1c87c8b3c15d938a3af55bf54813a4f",
+    "message": "Update release tag to \"1.23.0\""
+  },
+  {
+    "hash": "6d159f17dea1cc54410774d624c1abb720448460",
+    "message": "Automation/Fix Failing Test Due To Time Year Change"
+  },
+  {
+    "hash": "5f8a76ea2441c9c7f01a8eeac32f2c7e50613b75",
+    "message": "Phpunits Were Failing Because Of New Year"
+  },
+  {
+    "hash": "8313f7113cafafd271a1b2e33bac5e8bb14e634d",
+    "message": "Merge branch 'feature/team-g/sprint-1-23' into feature/team-g/sprint-1-23"
+  },
+  {
+    "hash": "d854394b04d2cd2e9478bc2e1dcb20b4957a8d27",
+    "message": "Merge branch 'feature/team-g/sprint-1-23' into feature/team-g/sprint-1-23"
+  },
+  {
+    "hash": "b34561348f170e95ca1876c2d86ae99b52fb0c32",
+    "message": "Sql/Rename Script"
+  },
+  {
+    "hash": "cd178d8da73b99cd5a92ba82cff2d90f08e230db",
+    "message": "Merge branch 'feature/fix-typo-in-phpcsfixer-config' into develop"
+  },
+  {
+    "hash": "ee96e8f530b744b9b0dd7704e6be93b187ebe633",
+    "message": "Grunt/Temp Fix For Db Configs"
+  },
+  {
+    "hash": "a425d6c5feed33ef03db1e801c1dc20e3d112e02",
+    "message": "Develop Several Selenium Fixes. Added alert handling for old env when alert actually is not showing up"
+  },
+  {
+    "hash": "3bc4381cdbbeb32397f76192a06e9e28963a540b",
+    "message": "Merge branch 'dvsa_setup_fix' into 'develop'"
+  },
+  {
+    "hash": "1c98403cb0dfd400f0077c5e06eec4454d9031ee",
+    "message": "Update Phpcsfixer Deps"
+  },
+  {
+    "hash": "139118f8475e6e7df5e03ce4b96e7a4a22b940b2",
+    "message": "Grunt/Ops 245 Wrong Db Host"
+  },
+  {
+    "hash": "73924c3081ebef8e757ad0fea47de3f3f4bdcf5c",
+    "message": "Aws Vagrant"
+  },
+  {
+    "hash": "ddb3b1b2f93e026b0944ec00b5474992a70824aa",
+    "message": "Fitnesse Tests"
+  },
+  {
+    "hash": "27c572090f69bafecaba50e99e39b107c50c2648",
+    "message": "Update composer lock."
+  },
+  {
+    "hash": "93797dd2b5c376786d493da23485e46fa301f25c",
+    "message": "Fix Typo In Testsupport Path"
+  },
+  {
+    "hash": "01351899cae86d50db409647b88e1a83fa9f2c4d",
+    "message": "Team G/Vts Permissions"
+  },
+  {
+    "hash": "0b0315f5763f8b40cb2ef3d4263bf8d00e6b4624",
+    "message": "build.xml: upgraded mot-behat job with common-composer"
+  },
+  {
+    "hash": "c9c4fe11a90aed218f90412c9d5fea6c53e8d229",
+    "message": "Vagrant Selenium Fix"
+  },
+  {
+    "hash": "f2b896c00dff9074af2f67b217dfb489f60b724d",
+    "message": "Add Sshexec Sh For New Vagrant V1"
+  },
+  {
+    "hash": "d9c7b44139e456a326e9da135344fe0b09162f5d",
+    "message": "Update release tag to \"1.23.0-DEV\""
+  },
+  {
+    "hash": "98c130d898d3b2a4c3b582c56c9b8e3d5a565dae",
+    "message": "Merge branch 'adding-release-1.23-sql-files-catalog' into develop"
+  },
+  {
+    "hash": "b188db6d8a62adf6a3bdc9c0eb79ea5dcace3a16",
+    "message": "Exploding dist for frontend"
+  },
+  {
+    "hash": "98300a97e6b85afb47fae7c0bcd405aa94d5f086",
+    "message": "Attempting to fix the hard-coded RFR ID bug"
+  },
+  {
+    "hash": "b0660f95beb23dc36635388a46b000c6e4116cdb",
+    "message": "Behat fix for mot-testsupport"
+  },
+  {
+    "hash": "1cfb43abd71cb3b4f2c44f6cbfbd568133d4ae0b",
+    "message": "Merge branch 'feature/OPS-33-move-mot-testsupport-autoload-global-php-to-dist' into develop"
+  },
+  {
+    "hash": "c1e7f692ba218c4070197e5b81ee104afb7885da",
+    "message": "Merge branch 'feature/dvsa-scripts-update' into develop"
+  },
+  {
+    "hash": "a962905418f925117bc23b8ba6e6abd2043ba7e9",
+    "message": "Update release tag to \"1.22.0\""
+  },
+  {
+    "hash": "8914091b903ef68f07355c2ba3c833587ce7e554",
+    "message": "Merge branch 'feature/autowire-factory' into develop"
+  },
+  {
+    "hash": "be672b6eb00f35c58e6fa020b24945a77af91687",
+    "message": "Merge branch 'hotfix/OPS-33-add-relevant-fields-for-testdata-cron-system-users' into develop"
+  },
+  {
+    "hash": "516c6912ec46d93024208f0b10d683bce7421611",
+    "message": "Also added testdata user details"
+  },
+  {
+    "hash": "6b257246e14f689be57b3b42f9717d909c6f477c",
+    "message": "Added relevant id and name fields for cron and system users"
+  },
+  {
+    "hash": "556c5a96b3c3a2ca393aac6e41fb2ac4bbd7b1a5",
+    "message": "Merge branch 'hotfix/OPS-33-add-vagrant-exception-in-reset-db-with-test-data' into develop"
+  },
+  {
+    "hash": "bec1a3e6d67efa83fbe51bef3212e92d7e4d8d7f",
+    "message": "Update release tag to \"1.22.0-DEV\""
+  },
+  {
+    "hash": "d663b31444e1a039f9a8fc153f834bee2f70da28",
+    "message": "Added release-1.22.0 folder"
+  },
+  {
+    "hash": "67736a7c5bef57aa1522bfe420215818800a8c7e",
+    "message": "Update release tag to \"1.21.0\""
+  },
+  {
+    "hash": "49213b4cc149c16fa1e933148cf8ab401fea5da2",
+    "message": "Merge branch 'develop-selenium-fixes' into develop"
+  },
+  {
+    "hash": "2dc368001a685f5dee89c118a6ee62a866b036f8",
+    "message": "Revert \"Merge branch 'develop-selenium-fixes' into develop\""
+  },
+  {
+    "hash": "c795cbf92ec52ed31a4a9122aad1062ebbef3d11",
+    "message": "Merge branch 'develop-selenium-fixes' into develop"
+  },
+  {
+    "hash": "68631ab757c65e6ba1e4640140ae48643d8441ff",
+    "message": "Merge branch 'feature/removed-unused-deploy-folder' into develop"
+  },
+  {
+    "hash": "1acf7a4ffe10667e0304826727218ee99c2f490a",
+    "message": "Merge branch 'feature/removed-unused-tests-folder' into develop"
+  },
+  {
+    "hash": "977d87e76eb1b4ed5a5cc7f68a34b6db5e687517",
+    "message": "Merge branch 'feature/remove-unused-openam_login-folder' into develop"
+  },
+  {
+    "hash": "483b0548bc67e8f3898b56c9a043100f09b5d20f",
+    "message": "Merge branch 'develop-skip-constantly-failing-test' into develop"
+  },
+  {
+    "hash": "772c365e958306ae3049da3b5853c8fa582ff8c9",
+    "message": "Housekeeping of sql scripts in update folder"
+  },
+  {
+    "hash": "bfd8b03234372453e51e862a7bd0b4c8da9b7a83",
+    "message": "Grunt: Added db:repair to switch:branch"
+  },
+  {
+    "hash": "b1b4daf933ab4d6857e019481a3b295a3b6eece3",
+    "message": "Removing personal data from demo db"
+  },
+  {
+    "hash": "b9416284e451609ace341404fe2fad436327259f",
+    "message": "Merge branch 'feature/add-story-suffix-to-sql-files' into develop"
+  },
+  {
+    "hash": "d1cafe4be4c268c4b4be8612d619b2e1bc5eae73",
+    "message": "Update release tag to \"1.21.0-DEV\""
+  },
+  {
+    "hash": "1dc7f0de98916bfb9c996dec28685b2526642514",
+    "message": "Update release tag to \"1.20.0\""
+  },
+  {
+    "hash": "52ba257f87c6b9d3be3c16ce5b4aac640f3bfda6",
+    "message": "Improvements to CSV download to allow large data sets. Use paging to prevent all the test log entries being loaded into memory at once. Made CSV generation process non-blocking so browser starts downloading immediately. Updated TesterTestLogController download CSV action to use new streaming CSV functionality. Updating unit tests for TesterMotTestLogController. Removed 50k test log export limit"
+  },
+  {
+    "hash": "1d1cb7e1edf9cb9441da8d7614f6feedf2829188",
+    "message": "Develop Selenium Quick Fix. Added missed data provider"
+  },
+  {
+    "hash": "0d9b642c22be4c5ab33b2863fecbfb6ecc2d9210",
+    "message": "Fixing selenium tests from uk.gov.dvsa.ui.feature.journey.ContingencyMotTest"
+  },
+  {
+    "hash": "850fe82c4c33a2addb2bbb01351d9e510141855e",
+    "message": "Selenium/Develop Fix"
+  },
+  {
+    "hash": "161696515419ae84f4e092838ea13ad31a85373c",
+    "message": "Update release tag to \"1.19.0\""
+  },
+  {
+    "hash": "5ecfe1958339466df6fd4fde3538f49e36bb39d7",
+    "message": "doesNotDisplayRetestLinkWhenEnteredHomePage@DashBoardViewTest due to bad initialization was randomly failing"
+  },
+  {
+    "hash": "a323d1f36aa2c0ba53c40f245025026ecfed2f31",
+    "message": "Db Upgrade Scripts For Future Releases"
+  },
+  {
+    "hash": "a1a4823bdd2506adfe02017dbd3be35ad1767c93",
+    "message": "Fwk Navigation Update. Created new MotPageFactory class for better control of app logic flow"
+  },
+  {
+    "hash": "802029780320b36076b13e8fc30eafac42a20d12",
+    "message": "Readded is JasperAsync flag to test"
+  },
+  {
+    "hash": "6b93a1b86b7c0070eeba2d5304ed615beb69988a",
+    "message": "Breadcrumb Selenium"
+  },
+  {
+    "hash": "3ab585cb434cec807d07f33569de06b71ec233ab",
+    "message": "Updating expected error messages in address input filter test data set"
+  },
+  {
+    "hash": "8d9f5d126f8b3e9c41e32ac169e9aa8712b62089",
+    "message": "User Registration Validation"
+  },
+  {
+    "hash": "0bec28d58b2e1e45a94580cd0df6c84441903741",
+    "message": "Update release tag to \"1.18.0\""
+  },
+  {
+    "hash": "ee07b024ca88bf1c0e0ad17b347124ab0b8ad3d7",
+    "message": "Fix For Skipped Tests"
+  },
+  {
+    "hash": "160ca2a26b14a123866e4ed9f10e84fd48134332",
+    "message": "Fix Selenium Refactoring Revert"
+  },
+  {
+    "hash": "ed3569b7b4b3b192cba3319049ed45b243de3c01",
+    "message": "Fixed Triggers For Mot Test"
+  },
+  {
+    "hash": "37b250e9f3b6c638d5dd8b6c91309691931921ab",
+    "message": "Fix Selenium Refactoring Revert"
+  },
+  {
+    "hash": "fa2a12ef90aa7b9e8939459a55082841df326700",
+    "message": "Reverting the last commit which messed the repo."
+  },
+  {
+    "hash": "59f3e646ee6a5fd96a26c627323a2d8acdfb421f",
+    "message": "Revert Selenium Refactoring Merge causing test to skip"
+  },
+  {
+    "hash": "6c4dd0a20f4ca685258d8aab0686f37481649ce0",
+    "message": "Slots Selenium Refactoring"
+  },
+  {
+    "hash": "314b8a9ced2aaf886783c1145e5056f17be2bff5",
+    "message": "Move DB Scripts From Current To 1.16 - 1.17 Folder"
+  },
+  {
+    "hash": "fcaa9dd5ff907331d91a265639afd08eb6d5d696",
+    "message": "Add Doctrine Proxy Task To Grunt Switch Branch"
+  },
+  {
+    "hash": "a84ffa7131e846534aca90126c3bb6e0af56f337",
+    "message": "Fixed DuplicateReplacementCertificatePrintPage.testReissueCertificateOnCurrentVTS_View"
+  },
+  {
+    "hash": "53537a47433fbec95bbc7782bbef3417f2c7e47e",
+    "message": "Slot Purchase Sprint 15"
+  },
+  {
+    "hash": "f55d7761abae948f9fa696387cb891f38f864e2b",
+    "message": "Resolve merge conflicts"
+  },
+  {
+    "hash": "4b7b1191d5650ded92ef625f5ec2cc295b6bad59",
+    "message": "Fix failing test"
+  },
+  {
+    "hash": "a9b28b4f44c3783136b4235f92ab531fc6074b41",
+    "message": "Changed ID of back to home button"
+  },
+  {
+    "hash": "6d1d4289d07f75aacbf43edc87484735fed473dc",
+    "message": "Delete redundant test due to introduction of Async Jasper"
+  },
+  {
+    "hash": "144bfde248d1eeb43b2c0f2c6888666d389a19ed",
+    "message": "Fix failing test"
+  },
+  {
+    "hash": "c43574dfbec957a48eb389fe03f34f421d08db8f",
+    "message": "Setting Jasper async feature to false by default"
+  },
+  {
+    "hash": "87499fc2426d9b1153f11aebf0b2a92e8ac172c3",
+    "message": "Add Jasper Sync test"
+  },
+  {
+    "hash": "0aba0bd30dcb8db138b07cf833fa9559ae33a0ca",
+    "message": "Add id as element locator"
+  },
+  {
+    "hash": "a8f32f3d2e80be40b1eb173056cf3b8fc0f30680",
+    "message": "Add Complete test"
+  },
+  {
+    "hash": "a4e3b3db52dce703c6f5a610e959641ff1895f43",
+    "message": "WIP: Add selenium test for Jasper"
+  },
+  {
+    "hash": "f62199d3dc535d0aba83ddc70df71b3852fa29c9",
+    "message": "Merge branch 'hotfix/feature-toggle-jasper-async' into hotfix/feature-toggle-jasper-async"
+  },
+  {
+    "hash": "da41bb875c32f5a297845b0d2a5fbb9a70f722c6",
+    "message": "Add Features Endpoint To Testsupport"
+  },
+  {
+    "hash": "b577450ae33228b6d97303d66015a8d26e6efb01",
+    "message": "Modify Service Config"
+  },
+  {
+    "hash": "9808a1720d7bcac551f8a3a6487ebbc420ed9c09",
+    "message": "Create FeaturesController"
+  },
+  {
+    "hash": "6a16fa27bc00e8708e249990a2de045885a4f3e0",
+    "message": "Add FeatureController Class"
+  },
+  {
+    "hash": "1b251e1a60d5c678e2fbd4cde931baa9f92cfea2",
+    "message": "Adding feature toggle for Jasper async"
+  },
+  {
+    "hash": "ddc20b69c04f26cc229dabfa91f1bf331904a50b",
+    "message": "Update release tag to \"1.17.0\""
+  },
+  {
+    "hash": "3440eafc4a64ce5ee0f1f58ae7141fe109048ce4",
+    "message": "Hotfix/1.16/Orphaned Payments\n    \n "
+  },
+  {
+    "hash": "acf62295bd512d89381b8d13a81467f88a8015fc",
+    "message": "Slot Purchase Sprint 15"
+  },
+  {
+    "hash": "818402e0446ef4ea6d0e83f037a2634f2a5c160e",
+    "message": "Add Fix To Failing Test"
+  },
+  {
+    "hash": "720336a262482ef0b21e3c6de148e254725d4818",
+    "message": "Spms 522 Add Role To Cron User"
+  },
+  {
+    "hash": "d513eaffafdbfd1b10a8e737c2dad2a646f21428",
+    "message": "Manage Dvsa Roles Permission"
+  },
+  {
+    "hash": "9ee3f39bdd0417f788474386eeb9f1ea54909c6c",
+    "message": "Dev Data Fix Lookup Site Status"
+  },
+  {
+    "hash": "dba9dbe1ff765ab7569aeb55a83f89b3e0b890b1",
+    "message": "Prevent Xss Attack On User Profile Page"
+  },
+  {
+    "hash": "bf60063c7dc307b13bde01b332a0cf6cf46164f8",
+    "message": "Set dev env test data for assembly ID from zero to one"
+  },
+  {
+    "hash": "d5efec32a17f3aec035432f6c42488f275022bd4",
+    "message": "Organisation Site Map Not Persisting"
+  },
+  {
+    "hash": "fc5c6c2e96f99efb7dd410e7957783a7f54543d1",
+    "message": "Bump Dvsa Doctrine Module"
+  },
+  {
+    "hash": "45ebbe378074d31916b09fa8fa7ac9d3f7ee63aa",
+    "message": "Update release tag to \"1.16.0\""
+  },
+  {
+    "hash": "8ab6957ed860a534d52fbd2d5248f8e7b5ca8c05",
+    "message": "Slot Purchase Sprint 14"
+  },
+  {
+    "hash": "5819d28c2b34cd7c19e630ed4d2d4e0c1a407012",
+    "message": "Fix Testsupport Rest Client Helper"
+  },
+  {
+    "hash": "ce4533498b134f296701c11bb7c6daca6ca33cb8",
+    "message": "Moving 1.15 Scripts To Update 1150 Folder"
+  },
+  {
+    "hash": "306882041223ea357aa676a35ade7df583c3c738",
+    "message": "REVERT: Readd Google Analytics To Develop Layouts"
+  },
+  {
+    "hash": "223a47ad0df9589ee113ed8dbf33f1bd06e90ffa",
+    "message": "Readd Google Analytics To Develop Layouts"
+  },
+  {
+    "hash": "780053ea1cc68b9ce942e86f27775817c91d6175",
+    "message": "Slot Purchase Sprint 13. Added SQL  file to release 1.15 folder"
+  },
+  {
+    "hash": "674997beb5012355dcf6eb731d12548d0b55e4af",
+    "message": "Update release tag to \"1.15.0\""
+  },
+  {
+    "hash": "4ee7570484ae7229535e9e6e5af5f65cc9f0bb1e",
+    "message": "Slot Purchase Sprint 13"
+  },
+  {
+    "hash": "1a025308454b442aa348a799e5c8b7c2529fa9c7",
+    "message": "User Syncv2"
+  },
+  {
+    "hash": "3636ffe7c068e95992af03667ee8de7caa96f6db",
+    "message": "Grunt Remove Php Sessions"
+  },
+  {
+    "hash": "ca44fcd26109db7fc1b2852f5b0f31219e962b2b",
+    "message": "Moving 9999 update scripts to 1140 folder"
+  },
+  {
+    "hash": "754d5223299f90b16049c9f632c929e8bf5f5052",
+    "message": "Update Openam Config"
+  },
+  {
+    "hash": "3212ddbfb4e9f69a0d42baad6f71d03591f20da8",
+    "message": "Update Das Removal Settings In Production Php"
+  },
+  {
+    "hash": "b72163bf972e970e05ff634d16d11f6a8ca660eb",
+    "message": "Fix Trigger Scripts"
+  },
+  {
+    "hash": "fa028deedefb94f5884533a8617fde9db1c23ba9",
+    "message": "Update release tag to \"1.14.0\""
+  },
+  {
+    "hash": "97e9c7c788cb6109531bd441354e47c11e85da0c",
+    "message": "Set log level for testing.php.dist back to ERR"
+  },
+  {
+    "hash": "c7324845235d8abff13f98769bc4812bbc93fc14",
+    "message": "Further update to the AE cleanup script"
+  },
+  {
+    "hash": "532877a14e15d47085d5d6cbe4bb9b3e7f0d1ff3",
+    "message": "Slot Purchase Sprint 12 Clone"
+  },
+  {
+    "hash": "9a95a2e0ca12faa350701fb5b92004848c88e141",
+    "message": "Sql Mods For Rel 1 14 0"
+  },
+  {
+    "hash": "d66dc5b223c3e6ea3cd09ba5b565bef4268f76e4",
+    "message": "VM-11241 - Sort roles alphabetically"
+  },
+  {
+    "hash": "9ba5aa4f0f9c71e5fae9df13893be982e0a95506",
+    "message": "Remove Test Already Covered In Behat"
+  },
+  {
+    "hash": "e73522da2a34fae5ae772c1a85f110bddbe59c3d",
+    "message": "updates to the kdd69 scripts"
+  },
+  {
+    "hash": "267fb7e21cbfbafc1b1aa4c304fd6b5b4a6a3843",
+    "message": "Remove Test Already Covered In Behat"
+  },
+  {
+    "hash": "1d2e78eefa7633e33f59eff47c6778dc4d803dde",
+    "message": "feature/trying-to-fix-notificationAndEventAreSentWhenInternalRoleIsAssigneSuccessfully"
+  },
+  {
+    "hash": "9fb20a1b6ac14de652010f0416167f4dcea26e2d",
+    "message": "feature/remove-ajax-complete-for-notificationAndEventAreSentWhenInternalRoleIsAssigneSuccessfully"
+  },
+  {
+    "hash": "11d33d80663a5d7e08455c5555b57e3593e795ba",
+    "message": "Grunt/Clean Up Db Tasks"
+  },
+  {
+    "hash": "4bc3cfa8cfaab1e433cfbf8b7fb1d489fc5038a0",
+    "message": "Selenium/Fix Ajax Wait"
+  },
+  {
+    "hash": "cf2315ca6a30b5c107f8e37ebec37d3745e19176",
+    "message": "Add SQLs to release-1.14.0"
+  },
+  {
+    "hash": "ffb700dbf0ec897ff58008c63bfb217a50a6de36",
+    "message": "Selenium/Ajax Bug Fix"
+  },
+  {
+    "hash": "7bda965d58d4b296ef54966cb6478d582b64ae92",
+    "message": "Upgrade Openam Client"
+  },
+  {
+    "hash": "66b157973bb914cdc8d77f73bddae82093cf33b2",
+    "message": "Bugfix Grunt Doctrine Proxy Command"
+  },
+  {
+    "hash": "5ff2a98ba732125743f14bbbe744145d8ddbf46b",
+    "message": "Create initial release-1.14.0 folder with Team V SQLs"
+  },
+  {
+    "hash": "28554922effb0c5db300df15d0fd4bc5f8574685",
+    "message": "History Tables In Dev. Add historical tables and triggers to developers database setup"
+  },
+  {
+    "hash": "c14e0da20422fe4d6d0a0559291a8804a12b0754",
+    "message": "Add Attributes To Direct Debit Status Entity"
+  },
+  {
+    "hash": "b50de35389d329257aa2b03c11002e785a3a60f2",
+    "message": "VM-13085/Create Ae Fix Sql"
+  },
+  {
+    "hash": "12a2c6ce85230bcb60ec05a4e01291089f3102d5",
+    "message": "Remove/Fail Test Successfully With Rfr From Regression"
+  },
+  {
+    "hash": "6118654d4c549a0fd8215ef56a3a62b9e7e27f37",
+    "message": "Slot Purchase Sprint 9"
+  },
+  {
+    "hash": "20fd45f1ef65de0f991f028cc6e34c51099d5567",
+    "message": "Renamed SQL files to remove square bracket's"
+  },
+  {
+    "hash": "c25da9c656dcc279d849ca2f73d3b827ed4fcb5e",
+    "message": "Create initial release-1.13.0 folder"
+  },
+  {
+    "hash": "ee75a819e7eaf8d7ac6b8eb0528e8c4321f33f55",
+    "message": "Db Update Folder Readme Clarification"
+  },
+  {
+    "hash": "4b945265320ce3c93801024482b7b489436f227f",
+    "message": "DB Update Folder Readme Clarification"
+  },
+  {
+    "hash": "535f037a9bba7307b86c26773053eca7440cf824",
+    "message": "Move SQL files from release-1.12 to release-1.12.0"
+  },
+  {
+    "hash": "00e890cf10ec923822af50bb68f78a1d86a171b0",
+    "message": "Bump Release Tag To 1.12.0"
+  },
+  {
+    "hash": "4e885d7c4e5f9f10383bb5d79980038bd9e67dd8",
+    "message": "Replace assertThat with assertSame"
+  },
+  {
+    "hash": "a0690ab418dac0dac5a482484ce64c9a17575b91",
+    "message": "Add space to IF statement"
+  },
+  {
+    "hash": "2d7a27282157cd3f1b1a2dbaacdc3a407faa975a",
+    "message": "Fix incorrect flag for partial VIM if no IM is set"
+  },
+  {
+    "hash": "3f2278c6673a970b64509e74a01dffe03272c368",
+    "message": "changes made to scenarios based on comments"
+  },
+  {
+    "hash": "21c0f35e7ffdef20555036aec361e5494d64bb20",
+    "message": "changing scenario title"
+  },
+  {
+    "hash": "95ccf28777383767a564170ab7bb9938b9fa5ee7",
+    "message": "removing test which will be covered at unit test level, additional tests are also being created in BVT suite to cover such cases"
+  },
+  {
+    "hash": "4ef9f08d350b9daa724df97015102780b1a27178",
+    "message": "Fix search against last 6 characters of the VRN which includes spaces."
+  },
+  {
+    "hash": "3b242435b752b7fd8767efb82c6dc04981a7eadb",
+    "message": "Direct Debit Hist Slots Column Should Be Null"
+  },
+  {
+    "hash": "b05b6c9a90eb6777f833fa6a14b7062c8bf34940",
+    "message": "Disabled Failing Cpms Tests In Cpms Purchase Slots Tests"
+  },
+  {
+    "hash": "b8ba0412356dea0a22f56769d2008b6bf6954873",
+    "message": "Adding Spms 1.10.2 Scripts Develop"
+  },
+  {
+    "hash": "3561aecf1938029acef5df6e2b7e659da03fcc24",
+    "message": "Slot Purchase Sprint8"
+  },
+  {
+    "hash": "a0a8b942e0c746423c410fe7ea992289109a42d9",
+    "message": "Merge branch 'feature/hotfix/1.10/1.10.2/inactive-roles-displayed-in-vts-and-ae-overview' into 'develop'"
+  },
+  {
+    "hash": "2c18875801bff37499d2de45825b6ad073f466ba",
+    "message": "Update release tag to \"1.11.0\""
+  },
+  {
+    "hash": "ce96dad63122b3dcea3ffac56e490e8fc663459e",
+    "message": "Remove @covers annotation that was breaking code coverage"
+  },
+  {
+    "hash": "35bb615f1aeb3f73175eb194cce279faf8d9f7d0",
+    "message": "Change Slice A To Regression"
+  },
+  {
+    "hash": "da6b673b0b40c1d8c67bfb7234245b8ea61dcbe2",
+    "message": "Remove Secure Login War Added By Mistake"
+  },
+  {
+    "hash": "9b45875ad5a8fa7ee0ce4cb458de485cd46be084",
+    "message": "To long ae number breaks CPMS tests."
+  },
+  {
+    "hash": "c515795b1bee2f87e9e9ca38a0667515ad3f2f3c",
+    "message": "Added Depth To Random Generator Of Ae Ref In Testsupport"
+  },
+  {
+    "hash": "66fe22dd5014599ca32cf84e53bc7a452f2ffe43",
+    "message": "Updated Db Migration Scripts"
+  },
+  {
+    "hash": "181e53e8b75b546b7f70d8aaec043fcd14778d69",
+    "message": "Updated release-1.10 migration SQL files following testing."
+  },
+  {
+    "hash": "81179219832c1b2423c4092e47e15c40b027d3c3",
+    "message": "Update release tag to \"1.10.0\""
+  },
+  {
+    "hash": "9061a535cb5ac03a5ba4c6cc096c8e27d2ba7a56",
+    "message": "Update release tag to \"1.10\""
+  }
+]

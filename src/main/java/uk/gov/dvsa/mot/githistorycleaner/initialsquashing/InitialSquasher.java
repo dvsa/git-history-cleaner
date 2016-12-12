@@ -27,15 +27,13 @@ public class InitialSquasher implements Module {
         String commitDate = args[6];
         String commitAuthor = args[7];
 
-        cleanupRepo(); // TODO: delete this, once everything's tested
         squashRepo(firstCommit, lastCommit, firstCommitMessage, commitDate, commitAuthor);
         recreateMasterAndChangeOrigin(secondRepoUrl);
 
         executeCommands(dir);
         logger.info(String.format("Done. Everything from commit \"%s\" to \"%s\" was squashed with message: %s", firstCommit, lastCommit, firstCommitMessage));
 
-        pushToTheNewOrigin(dir, secondRepoUrl);
-        logger.info("Pushed to the new origin: " + secondRepoUrl);
+        assertOriginIsChanged(dir, secondRepoUrl);
     }
 
     private void executeCommands(String dir) {
@@ -45,29 +43,20 @@ public class InitialSquasher implements Module {
         }
     }
 
-    private String pushToTheNewOrigin(String dir, String secondRepoUrl) {
-        String currentRemote = shell.executeCommand(dir, "git ls-remote --get-url");
+    private void assertOriginIsChanged(String dir, String secondRepoUrl) {
+        String currentRemote = shell.executeCommandArray(dir, "git", "config", "--get", "remote.origin.url");
         if(!currentRemote.trim().equals(secondRepoUrl.trim())){
             logger.error(String.format("Remote repo url was not set. Should be %s, but is %s", secondRepoUrl, currentRemote));
             throw new RuntimeException();
+        } else {
+            logger.info("Origin changed to: " + currentRemote);
         }
-
-        // String output = shell.ExecuteCommand(dir, "git push --force --set-upstream origin master"));
-        // return output;
-        return currentRemote;
     }
 
     private void recreateMasterAndChangeOrigin(String secondRepoUrl) {
-        queueCommand("git", "remote", "set-url", "origin",  secondRepoUrl);
         queueCommand("git", "branch", "-D", "master");
         queueCommand("git", "checkout", "-b", "master");
-    }
-
-    private void cleanupRepo() {
-        queueCommand("git", "remote", "set-url", "origin", "git@gitlab.motdev.org.uk:dev-tools/mot-helper.git");
-        queueCommand("git", "reset", "--hard");
-        queueCommand("git", "checkout", "master");
-        queueCommand("git", "reset", "--hard", "origin/master");
+        queueCommand("git", "remote", "set-url", "origin",  secondRepoUrl);
     }
 
     private void squashRepo(String firstCommit, String lastCommit, String initialCommitMessage, String commitDate, String commitAuthor) {
