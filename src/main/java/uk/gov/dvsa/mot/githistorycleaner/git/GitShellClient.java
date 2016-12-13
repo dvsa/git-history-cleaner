@@ -5,6 +5,8 @@ import uk.gov.dvsa.mot.githistorycleaner.Shell;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.stream.Stream;
 
 
 public class GitShellClient implements GitClient {
@@ -16,35 +18,35 @@ public class GitShellClient implements GitClient {
 
     @Override
     public void createBranch(String repoPath, String branchName) {
-        shell.executeCommand(repoPath, "git checkout -b " + branchName);
+        shell.executeCommand(repoPath, "git", "checkout", "-b", branchName);
     }
 
     @Override
     public void mergeBranch(String repoPath, String targetBranch, String branchToMerge, String author, String date) {
         this.checkoutBranch(repoPath, targetBranch);
-        shell.executeCommandArray(repoPath, "git", "merge", "--no-commit", "--no-ff", branchToMerge);
+        shell.executeCommand(repoPath, "git", "merge", "--no-commit", "--no-ff", branchToMerge);
         String message = "Merge branch '" + branchToMerge + "' into " + targetBranch;
-        shell.executeCommandArray(repoPath, "git", "commit", "-m", message, "--date", date, "--author", author);
+        shell.executeCommand(repoPath, "git", "commit", "-m", message, "--date", date, "--author", author);
     }
 
     @Override
     public void checkoutBranch(String repoPath, String branch) {
-        shell.executeCommand(repoPath, "git checkout " + branch);
+        shell.executeCommand(repoPath, "git", "checkout", branch);
     }
 
     @Override
     public void checkoutCommit(String repoPath, String commit) {
-        shell.executeCommand(repoPath, "git checkout -f " + commit);
+        shell.executeCommand(repoPath, "git", "checkout", "-f", commit);
     }
 
     @Override
     public void commit(String repoPath, String message, String author, String date) {
-        shell.executeCommandArray(repoPath, "git", "commit", "-m", message, "--date", date, "--author", author);
+        shell.executeCommand(repoPath, "git", "commit", "-m", message, "--date", date, "--author", author);
     }
 
     @Override
     public void createPatch(String repoPath, String olderCommitHash, String patchPath) {
-        String output = shell.executeCommandArray(repoPath, "git", "--no-pager", "format-patch", olderCommitHash, "--stdout");
+        String output = shell.executeCommand(true, repoPath, "git", "--no-pager", "format-patch", olderCommitHash, "--stdout");
 
         try {
             PrintWriter writer = new PrintWriter(patchPath, "UTF-8");
@@ -59,51 +61,57 @@ public class GitShellClient implements GitClient {
 
     @Override
     public void applyPatch(String repoPath, String patchPath, String message, String author, String date) {
-        shell.executeCommandArray(repoPath, "git", "apply", patchPath);
-        shell.executeCommandArray(repoPath, "git", "add", "-A");
+
+        String output = shell.executeCommand(repoPath, "git", "apply", patchPath, "--ignore-whitespace", "--ignore-space-change");
+        if (output.contains("error:") || output.contains("fatal:")) {
+            throw new RuntimeException("APPLY FAILED, SORRY");
+        }
+
+        shell.executeCommand(repoPath, "git", "add", "-A");
         commit(repoPath, message, author, date);
     }
 
     @Override
     public void amendCommitMessage(String repoPath, String message) {
-        String command = "git commit --amend -m '" + message + "'";
-        shell.executeCommand(repoPath, command);
+        shell.executeCommand(repoPath, "git", "commit", "--amend", "-m", message);
     }
 
     @Override
     public void gitDeleteBranch(String repoPath, String branch) {
-        String command = "git branch -D " + branch;
-        shell.executeCommand(repoPath, command);
+        shell.executeCommand(repoPath, "git", "branch", "-D", branch);
     }
 
     @Override
     public void softReset(String repoPath, String toCommit) {
-        String command = "git reset --soft " + toCommit;
-        shell.executeCommand(repoPath, command);
+        shell.executeCommand(repoPath, "git", "reset", "--soft", toCommit);
     }
 
     @Override
-    public void amendCommitDate(String repoPath, String date) {
-        shell.executeCommandArray(repoPath, "git", "commit", "--amend", "--date='" + date + "'");
+    public void push(String repoPath, String remote, String branch) {
+        shell.executeCommand(repoPath, "git", "push", remote, branch);
     }
 
     @Override
-    public void amendCommitAuthor(String repoPath, String author) {
-        shell.executeCommandArray(repoPath, "git", "commit", "--amend", "--author='" + author + "'");
-    }
+    public String log(String repoPath, String... options) {
+        String[] gitLogCommand = new String[]{"git", "log"};
+        String[] allParams = Stream.concat(Arrays.stream(gitLogCommand), Arrays.stream(options))
+                .toArray(String[]::new);
 
-    @Override
-    public void push(String repoPath, String branch) {
-        shell.executeCommand(repoPath, "git push origin " + branch);
-    }
-
-    @Override
-    public String log(String repoPath, String options) {
-        return shell.executeCommand(repoPath, "git log " + options);
+        return shell.executeCommand(repoPath, allParams);
     }
 
     @Override
     public void add(String repoPath, String file) {
-        shell.executeCommand(repoPath, "git add " + file);
+        shell.executeCommand(repoPath, "git", "add", file);
+    }
+
+    @Override
+    public String getCurrentCommitHash(String repoPath) {
+        return shell.executeCommand(repoPath, "git", "rev-parse", "HEAD").trim();
+    }
+
+    @Override
+    public void cherryPick(String repoPath, String commit) {
+        shell.executeCommand(repoPath, "git", "cherry-pick", commit);
     }
 }

@@ -23,8 +23,7 @@ public class Publisher implements Module {
     private CommitMessageAnalyser commitMessageAnalyser;
     private Logger logger;
     private String commit;
-    private String privateRepositoryPath;
-    private String publicRepositoryPath;
+    private String repositoryPath;
 
     public Publisher(
             GitClient git,
@@ -43,8 +42,7 @@ public class Publisher implements Module {
     @Override
     public void execute(String[] args) {
         commit = args[1];
-        privateRepositoryPath = args[2];
-        publicRepositoryPath = args[3];
+        repositoryPath = args[2];
 
         String privateBranch = config.getPrivateRepositoryConfig().getSourceBranchName();
         String publicBranch = config.getPublicRepositoryConfig().getDestinationBranchName();
@@ -55,22 +53,23 @@ public class Publisher implements Module {
                 config.getPrivateRepositoryConfig(),
                 config.getPublicRepositoryConfig(),
                 git,
-                privateRepositoryPath,
-                publicRepositoryPath
+                repositoryPath,
+                repositoryPath
         );
 
-        List<MergeRequest> mergeRequestList = getMergeRequestList(privateRepositoryPath, getLastPatchHash(), commit);
+        List<MergeRequest> mergeRequestList = getMergeRequestList(repositoryPath, getLastPatchHash(), commit);
 
-        for (MergeRequest mergeRequest: mergeRequestList) {
+        for (MergeRequest mergeRequest : mergeRequestList) {
             logger.info("Execute PatchCommand");
 
             patchCommand.execute(mergeRequest, privateBranch, publicBranch);
 
             logger.info("Push changes");
-            git.push(publicRepositoryPath, publicBranch);
+            git.push(repositoryPath, "public-origin", publicBranch + ":master");
+            git.push(repositoryPath, "origin", publicBranch);
 
             logger.info("Save patch history");
-            String publicCommit = git.log(publicRepositoryPath, "-1 --pretty=%H").trim();
+            String publicCommit = git.log(repositoryPath, "-1", "--pretty=%H").trim();
 
             PatchHistory patchHistory = new PatchHistory();
             patchHistory.setPublicCommit(publicCommit);
@@ -86,17 +85,17 @@ public class Publisher implements Module {
     }
 
     private List<String> getHashList(String repoPath, String since, String until) {
-        String output = git.log(repoPath, since + "^.." + until + " --pretty=%H ");
+        String output = git.log(repoPath, since + "^.." + until, "--pretty=%H ");
         return Arrays.asList(output.split("\n"));
     }
 
     private List<String> getHashAndDateList(String repoPath, String since, String until) {
-        String output = git.log(repoPath, since + "^.." + until + " --pretty=%H;%ad --first-parent");
+        String output = git.log(repoPath, since + "^.." + until, "--pretty=%H;%ad", "--first-parent");
         return Arrays.asList(output.split("\n"));
     }
 
     private String getMessage(String repoPath, String hash) {
-        return git.log(repoPath, hash + "^.." + hash + " --pretty=%B");
+        return git.log(repoPath, hash + "^.." + hash, "--pretty=%B");
     }
 
     private List<MergeRequest> getMergeRequestList(String repoPath, String since, String until) {
@@ -105,7 +104,7 @@ public class Publisher implements Module {
         List<String> hashAndDateList = getHashAndDateList(repoPath, since, until);
         MergeRequest prevMergeRequest = null;
 
-        for (String hashAndDate: hashAndDateList) {
+        for (String hashAndDate : hashAndDateList) {
             String[] data = hashAndDate.split(";");
             String hash = data[0];
             String date = data[1];
@@ -114,9 +113,11 @@ public class Publisher implements Module {
             List<String> commitList = getHashList(repoPath, hash, hash);
 
             String commitHash;
+            // More than one commit means that a proper merge happened on master
             if (commitList.size() > 1) {
                 commitHash = commitList.get(1);
             } else {
+                // only one commit means that someone pushed directly to master instead of merging
                 commitHash = commitList.get(0);
             }
 
@@ -128,7 +129,7 @@ public class Publisher implements Module {
             } else {
                 MergeRequest mergeRequest = new MergeRequest(hash, message, storyNumber, date, prevMergeRequest);
                 mergeRequestList.add(mergeRequest);
-                prevMergeRequest = prevMergeRequest;
+                prevMergeRequest = mergeRequest;
             }
         }
 
@@ -139,18 +140,20 @@ public class Publisher implements Module {
 
     private String getLastPatchHash() {
         String publishingHistoryFileName = config.getPublicRepositoryConfig().getPublishingHistoryFileName();
-        return jsonFileDao.get(publicRepositoryPath + "/" + publishingHistoryFileName).getPrivateCommit();
+        return jsonFileDao.get(repositoryPath + "/" + publishingHistoryFileName).getPrivateCommit();
     }
 
     private void savePatchHistory(PatchHistory patchHistory, String branch, String DateTime) {
         String publishingHistoryFileName = config.getPublicRepositoryConfig().getPublishingHistoryFileName();
         String authorName = config.getPublicRepositoryConfig().getAuthorFullName();
 
-        jsonFileDao.save(publicRepositoryPath + "/" + publishingHistoryFileName, patchHistory);
+        git.checkoutBranch(repositoryPath, branch);
 
-        git.add(publicRepositoryPath, publishingHistoryFileName);
-        git.commit(publicRepositoryPath, "Save patch history file", authorName, DateTime);
-        git.push(publicRepositoryPath, branch);
+        jsonFileDao.save(repositoryPath + "/" + publishingHistoryFileName, patchHistory);
+
+        git.add(repositoryPath, publishingHistoryFileName);
+        git.commit(repositoryPath, "Save patch history file", authorName, DateTime);
+        git.push(repositoryPath, "public-origin", branch);
     }
 
     private String getCurrentDateTime() {

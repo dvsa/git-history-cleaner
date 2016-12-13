@@ -49,13 +49,13 @@ public class InitialSquasher implements Module {
 
     private void executeCommands(String dir) {
         for (String[] command : commands) {
-            String output = shell.executeCommandArray(dir, command);
+            String output = shell.executeCommand(dir, command);
             logger.info(output);
         }
     }
 
     private void assertOriginIsChanged(String dir) {
-        String currentRemote = shell.executeCommandArray(dir, "git", "config", "--get", "remote.origin.url");
+        String currentRemote = shell.executeCommand(dir, "git", "config", "--get", "remote.origin.url");
         if (!currentRemote.trim().equals(publicRepositoryConfig.getPublicRepoUrl())) {
             logger.error(String.format("Remote repo url was not set. Should be %s, but is %s", publicRepositoryConfig.getPublicRepoUrl(), currentRemote));
             throw new RuntimeException();

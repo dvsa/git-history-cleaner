@@ -15,32 +15,11 @@ public class Shell {
         this.logger = logger;
     }
 
-    public String executeCommand(String dir, String command) {
-        try {
-            logger.info("GIT dir: " + dir);
-            logger.info("GIT EXECUTE: " + command);
-            Process p = r.exec(command, null, new File(dir));
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-            StringBuffer sb = new StringBuffer();
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
-            }
-
-            String output = sb.toString();
-
-            p.waitFor();
-            return output;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+    public String executeCommand(String dir, String... command) {
+        return executeCommand(false, dir, command);
     }
 
-    public String executeCommandArray(String dir, String... command) {
+    public String executeCommand(boolean silent, String dir, String... command) {
         try {
             logger.info("GIT EXECUTE: " + String.join(" ", command));
             ProcessBuilder ps = new ProcessBuilder(command);
@@ -61,10 +40,12 @@ public class Shell {
 
             String output = stringBuffer.toString();
 
+            if (!silent) {
+                logger.info("GIT OUTPUT: " + output);
+            }
+
             return output;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
     }

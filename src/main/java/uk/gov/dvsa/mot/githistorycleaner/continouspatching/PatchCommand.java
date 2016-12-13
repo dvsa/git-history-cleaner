@@ -30,26 +30,22 @@ public class PatchCommand {
             String privateBranch,
             String publicBranch
     ) {
-        this.createPatchFromPrivateRepo(mergeRequest, privateBranch);
-        this.applyPatchToPublicRepo(mergeRequest, publicBranch);
-    }
-
-    private void createPatchFromPrivateRepo(MergeRequest mergeRequest, String privateBranch) {
-        git.checkoutBranch(privateRepositoryPath, privateBranch);
         git.checkoutCommit(privateRepositoryPath, mergeRequest.getHash());
         git.softReset(privateRepositoryPath, mergeRequest.getPrevMergeRequest().getHash());
         git.commit(privateRepositoryPath, mergeRequest.getMessage(), publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
-        git.createPatch(privateRepositoryPath, mergeRequest.getPrevMergeRequest().getHash(), privateRepositoryConfig.getPatchFilePath());
-        git.checkoutBranch(privateRepositoryPath, privateBranch);
-    }
+        git.createBranch(privateRepositoryPath, "temporary-publish-branch");
 
-    private void applyPatchToPublicRepo(MergeRequest mergeRequest, String publicBranch) {
+        String commitToCherryPick = git.getCurrentCommitHash(privateRepositoryPath);
+
         String featureBranch = "feature/branch/" + mergeRequest.getJiraTicketNumber();
-        git.checkoutBranch(publicRepositoryPath, publicBranch);
-        git.gitDeleteBranch(publicRepositoryPath, featureBranch);
-        git.createBranch(publicRepositoryPath, featureBranch);
-        git.applyPatch(publicRepositoryPath, privateRepositoryConfig.getPatchFilePath(), mergeRequest.getMessage(), publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
-        git.mergeBranch(publicRepositoryPath, publicBranch, featureBranch, publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
-        git.gitDeleteBranch(publicRepositoryPath, featureBranch);
+        git.checkoutBranch(privateRepositoryPath, publicBranch);
+        git.gitDeleteBranch(privateRepositoryPath, featureBranch);
+        git.createBranch(privateRepositoryPath, featureBranch);
+
+        git.cherryPick(privateRepositoryPath, commitToCherryPick);
+
+        git.mergeBranch(privateRepositoryPath, publicBranch, featureBranch, publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
+        git.gitDeleteBranch(privateRepositoryPath, featureBranch);
+        git.gitDeleteBranch(privateRepositoryPath, "temporary-publish-branch");
     }
 }

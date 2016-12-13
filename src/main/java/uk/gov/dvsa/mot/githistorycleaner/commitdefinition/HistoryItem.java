@@ -42,6 +42,16 @@ public class HistoryItem {
         this.storyNumbers = storyNumbers;
     }
 
+    public void addStoryNumber(String storyNumber) {
+        this.storyNumbers.add(storyNumber);
+    }
+
+    public void addStoryNumbers(Iterable<String> storyNumbers) {
+        for (String storyNumber : storyNumbers) {
+            this.storyNumbers.add(storyNumber);
+        }
+    }
+
     public String getDate() {
         return date;
     }

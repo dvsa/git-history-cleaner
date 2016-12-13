@@ -9,11 +9,11 @@ public interface GitClient {
     void commit(String repoPath, String message, String author, String date);
     void mergeBranch(String repoPath, String targetBranch, String branchToMerge, String author, String date);
     void amendCommitMessage(String repoPath, String message);
-    void amendCommitAuthor(String repoPath, String author);
-    void amendCommitDate(String repoPath, String date);
     void gitDeleteBranch(String repoPath, String message);
     void softReset(String repoPath, String toCommit);
-    void push(String repoPath, String branch);
+    void push(String repoPath, String remote, String branch);
     void add(String repoPath, String file);
-    String log (String repoPath, String options);
+    String log (String repoPath, String... options);
+    String getCurrentCommitHash(String repoPath);
+    void cherryPick(String repoPath, String commit);
 }

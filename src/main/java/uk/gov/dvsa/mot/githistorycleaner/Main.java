@@ -27,7 +27,7 @@ public class Main {
 
     public static void main(String[] args) {
         if (args.length == 0) {
-            logger.error("Unrecognized module");
+            logger.error("Module not given");
             return;
         }
 
@@ -39,8 +39,11 @@ public class Main {
             throw new RuntimeException(exception);
         }
 
-        GitClient git = new GitShellClient(new Shell(logger));
         CommitMessageAnalyser commitMessageAnalyser = new CommitMessageAnalyser(config.getJiraCofig().getTicketNumberFormat());
+        Shell shell = new Shell(logger);
+
+        GitClient git = new GitShellClient(shell);
+        JsonFileDao historyFileDao = new JsonFileDao<>(HistoryFile.class);
 
         String moduleName = args[0];
         Module module;
@@ -48,23 +51,23 @@ public class Main {
         if (moduleName.equals("initial-squash")) {
             module = new InitialSquasher(logger, new Shell(logger), config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
         } else if (moduleName.equals("analyse-merges")) {
-            module = new MergeAnalyser(git, logger, new JsonFileDao<>(HistoryFile.class), config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
+            module = new MergeAnalyser(git, logger, historyFileDao, config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
         } else if (moduleName.equals("jira-fetch")) {
             String user = args[1];
             String password = args[2];
             module = new Fetcher(
                     new JiraDao(user, password, config.getJiraCofig().getJiraApiUrl()),
                     logger,
-                    new JsonFileDao<>(HistoryFile.class),
+                    historyFileDao,
                     commitMessageAnalyser,
                     config.getPublicRepositoryConfig().getPublishingHistoryFileName()
             );
         } else if (moduleName.equals("history-rewrite")) {
-            module = new Rewriter();
+            module = new Rewriter(git, historyFileDao, logger);
         } else if (moduleName.equals("import-diff")) {
             module = new Importer(
                     logger,
-                    new JsonFileDao<>(HistoryFile.class),
+                    historyFileDao,
                     new JsonFileDao<>(DiffItem[].class),
                     config.getPublicRepositoryConfig(),
                     config.getPrivateRepositoryConfig()
