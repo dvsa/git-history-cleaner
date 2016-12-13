@@ -1,5 +1,9 @@
 [
   {
+    "hash": "5d7f804adb48107856d075a24e312ba2cadefd61",
+    "message": "Feature add autodocs testcase report generator"
+  },
+  {
     "hash": "3ed6efb03cdab0d1a3c0133a104d144652fc74df",
     "message": "Add the correct urls for the test-support config dist file"
   },
