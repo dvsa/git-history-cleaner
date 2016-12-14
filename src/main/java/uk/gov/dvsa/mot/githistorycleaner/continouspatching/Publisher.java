@@ -1,15 +1,20 @@
 package uk.gov.dvsa.mot.githistorycleaner.continouspatching;
 
-import org.slf4j.Logger;
 import uk.gov.dvsa.mot.githistorycleaner.JsonFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.Module;
 import uk.gov.dvsa.mot.githistorycleaner.config.Config;
 import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
 import uk.gov.dvsa.mot.githistorycleaner.jirafetching.CommitMessageAnalyser;
 
+import org.slf4j.Logger;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
 
 public class Publisher implements Module {
     private GitClient git;
@@ -17,6 +22,9 @@ public class Publisher implements Module {
     private JsonFileDao<PatchHistory> jsonFileDao;
     private CommitMessageAnalyser commitMessageAnalyser;
     private Logger logger;
+    private String commit;
+    private String privateRepositoryPath;
+    private String publicRepositoryPath;
 
     public Publisher(
             GitClient git,
@@ -34,15 +42,22 @@ public class Publisher implements Module {
 
     @Override
     public void execute(String[] args) {
-        String privateBranch = args[1];
-        String publicBranch = args[2];
-        String commit = args[3];
+        commit = args[1];
+        privateRepositoryPath = args[2];
+        publicRepositoryPath = args[3];
+
+        String privateBranch = config.getPrivateRepositoryConfig().getSourceBranchName();
+        String publicBranch = config.getPublicRepositoryConfig().getDestinationBranchName();
 
         logger.info("Execute Publisher");
 
-        PatchCommand patchCommand = new PatchCommand(config.getPrivateRepositoryConfig(), config.getPublicRepositoryConfig(), git);
-        String privateRepositoryPath = config.getPrivateRepositoryConfig().getPath();
-        String publicRepositoryPath = config.getPublicRepositoryConfig().getPath();
+        PatchCommand patchCommand = new PatchCommand(
+                config.getPrivateRepositoryConfig(),
+                config.getPublicRepositoryConfig(),
+                git,
+                privateRepositoryPath,
+                publicRepositoryPath
+        );
 
         List<MergeRequest> mergeRequestList = getMergeRequestList(privateRepositoryPath, getLastPatchHash(), commit);
 
@@ -123,15 +138,13 @@ public class Publisher implements Module {
     }
 
     private String getLastPatchHash() {
-        String publicRepositoryPath = config.getPublicRepositoryConfig().getPath();
         String publishingHistoryFileName = config.getPublicRepositoryConfig().getPublishingHistoryFileName();
         return jsonFileDao.get(publicRepositoryPath + "/" + publishingHistoryFileName).getPrivateCommit();
     }
 
     private void savePatchHistory(PatchHistory patchHistory, String branch, String DateTime) {
-        String publicRepositoryPath = config.getPublicRepositoryConfig().getPath();
         String publishingHistoryFileName = config.getPublicRepositoryConfig().getPublishingHistoryFileName();
-        String authorName = config.getPublicRepositoryConfig().getAuthorName();
+        String authorName = config.getPublicRepositoryConfig().getAuthorFullName();
 
         jsonFileDao.save(publicRepositoryPath + "/" + publishingHistoryFileName, patchHistory);
 

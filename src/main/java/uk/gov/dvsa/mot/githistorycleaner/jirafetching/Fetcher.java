@@ -17,22 +17,23 @@ public class Fetcher implements Module {
     private Logger logger;
     private JsonFileDao<HistoryFile> historyFileDao;
     private CommitMessageAnalyser commitMessageAnalyser;
+    private String historyFileName;
 
     public Fetcher(
             JiraDao jiraDao,
             Logger logger,
             JsonFileDao<HistoryFile> historyFileDao,
-            CommitMessageAnalyser commitMessageAnalyser
-    ) {
+            CommitMessageAnalyser commitMessageAnalyser,
+            String historyFileName) {
         this.jiraDao = jiraDao;
         this.logger = logger;
         this.historyFileDao = historyFileDao;
         this.commitMessageAnalyser = commitMessageAnalyser;
+        this.historyFileName = historyFileName;
     }
 
     @Override
     public void execute(String[] args) {
-        String historyFileName = args[3];
         try {
             logger.info("Reading history file");
             HistoryFile historyFile = historyFileDao.get(historyFileName);
@@ -86,7 +87,7 @@ public class Fetcher implements Module {
         String title = TITLE_UNKNOWN;
 
         try {
-            title = jiraDao.fetchTicketByNumber(ticketNumber).getTitle();
+            title = ticketNumber + ": " + jiraDao.fetchTicketByNumber(ticketNumber).getTitle();
         } catch (Exception e) {
             e.printStackTrace();
             logger.error(String.format("Ticket %s was not found", ticketNumber));

@@ -7,15 +7,21 @@ import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
 public class PatchCommand {
     private PrivateRepositoryConfig privateRepositoryConfig;
     private PublicRepositoryConfig publicRepositoryConfig;
+    private final String privateRepositoryPath;
+    private final String publicRepositoryPath;
     private GitClient git;
 
     public PatchCommand(
             PrivateRepositoryConfig privateRepositoryConfig,
             PublicRepositoryConfig publicRepositoryConfig,
-            GitClient git
+            GitClient git,
+            String privateRepositoryPath,
+            String publicRepositoryPath
     ) {
         this.privateRepositoryConfig = privateRepositoryConfig;
         this.publicRepositoryConfig = publicRepositoryConfig;
+        this.privateRepositoryPath = privateRepositoryPath;
+        this.publicRepositoryPath = publicRepositoryPath;
         this.git = git;
     }
 
@@ -24,28 +30,26 @@ public class PatchCommand {
             String privateBranch,
             String publicBranch
     ) {
-        this.createPatchFromPrivateRepo(mergeRequest.getPrevMergeRequest().getHash(), mergeRequest.getHash(), privateBranch, mergeRequest.getDate());
-        this.applyPatchToPublicRepo(mergeRequest.getMessage(), publicBranch, mergeRequest.getJiraTicketNumber(), mergeRequest.getDate());
+        this.createPatchFromPrivateRepo(mergeRequest, privateBranch);
+        this.applyPatchToPublicRepo(mergeRequest, publicBranch);
     }
 
-    private void createPatchFromPrivateRepo(String since, String until, String privateBranch, String date) {
-        git.checkoutBranch(privateRepositoryConfig.getPath(), privateBranch);
-        git.checkoutCommit(privateRepositoryConfig.getPath(), until);
-        git.softReset(privateRepositoryConfig.getPath(), since);
-        git.commit(privateRepositoryConfig.getPath(), until, publicRepositoryConfig.getPath(), date);
-        git.createPatch(privateRepositoryConfig.getPath(), since, privateRepositoryConfig.getPatchFilePath());
-        git.checkoutBranch(privateRepositoryConfig.getPath(), privateBranch);
+    private void createPatchFromPrivateRepo(MergeRequest mergeRequest, String privateBranch) {
+        git.checkoutBranch(privateRepositoryPath, privateBranch);
+        git.checkoutCommit(privateRepositoryPath, mergeRequest.getHash());
+        git.softReset(privateRepositoryPath, mergeRequest.getPrevMergeRequest().getHash());
+        git.commit(privateRepositoryPath, mergeRequest.getMessage(), publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
+        git.createPatch(privateRepositoryPath, mergeRequest.getPrevMergeRequest().getHash(), privateRepositoryConfig.getPatchFilePath());
+        git.checkoutBranch(privateRepositoryPath, privateBranch);
     }
 
-    private void applyPatchToPublicRepo(String message, String publicBranch, String jiraTicketNumber, String date) {
-        git.checkoutBranch(publicRepositoryConfig.getPath(), publicBranch);
-
-        String featureBranch = "feature/branch/" + jiraTicketNumber;
-        git.gitDeleteBranch(publicRepositoryConfig.getPath(), featureBranch);
-        git.createBranch(publicRepositoryConfig.getPath(), featureBranch);
-        git.applyPatch(publicRepositoryConfig.getPath(), privateRepositoryConfig.getPatchFilePath(), message, publicRepositoryConfig.getAuthorName(), date);
-
-        git.mergeBranch(publicRepositoryConfig.getPath(), publicBranch, featureBranch, publicRepositoryConfig.getAuthorName(), date);
-        git.gitDeleteBranch(publicRepositoryConfig.getPath(), featureBranch);
+    private void applyPatchToPublicRepo(MergeRequest mergeRequest, String publicBranch) {
+        String featureBranch = "feature/branch/" + mergeRequest.getJiraTicketNumber();
+        git.checkoutBranch(publicRepositoryPath, publicBranch);
+        git.gitDeleteBranch(publicRepositoryPath, featureBranch);
+        git.createBranch(publicRepositoryPath, featureBranch);
+        git.applyPatch(publicRepositoryPath, privateRepositoryConfig.getPatchFilePath(), mergeRequest.getMessage(), publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
+        git.mergeBranch(publicRepositoryPath, publicBranch, featureBranch, publicRepositoryConfig.getAuthorFullName(), mergeRequest.getDate());
+        git.gitDeleteBranch(publicRepositoryPath, featureBranch);
     }
 }

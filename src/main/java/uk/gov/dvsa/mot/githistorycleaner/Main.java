@@ -46,17 +46,29 @@ public class Main {
         Module module;
 
         if (moduleName.equals("initial-squash")) {
-            module = new InitialSquasher(logger, new Shell(logger));
+            module = new InitialSquasher(logger, new Shell(logger), config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
         } else if (moduleName.equals("analyse-merges")) {
-            module = new MergeAnalyser(git, logger);
+            module = new MergeAnalyser(git, logger, new JsonFileDao<>(HistoryFile.class), config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
         } else if (moduleName.equals("jira-fetch")) {
             String user = args[1];
             String password = args[2];
-            module = new Fetcher(new JiraDao(user, password), logger, new JsonFileDao<>(HistoryFile.class), commitMessageAnalyser);
+            module = new Fetcher(
+                    new JiraDao(user, password, config.getJiraCofig().getJiraApiUrl()),
+                    logger,
+                    new JsonFileDao<>(HistoryFile.class),
+                    commitMessageAnalyser,
+                    config.getPublicRepositoryConfig().getPublishingHistoryFileName()
+            );
         } else if (moduleName.equals("history-rewrite")) {
             module = new Rewriter();
         } else if (moduleName.equals("import-diff")) {
-            module = new Importer(logger, new JsonFileDao<>(HistoryFile.class), new JsonFileDao<>(DiffItem[].class));
+            module = new Importer(
+                    logger,
+                    new JsonFileDao<>(HistoryFile.class),
+                    new JsonFileDao<>(DiffItem[].class),
+                    config.getPublicRepositoryConfig(),
+                    config.getPrivateRepositoryConfig()
+            );
         } else if (moduleName.equals("publish")) {
             module = new Publisher(git, config, new JsonFileDao<>(PatchHistory.class), commitMessageAnalyser, logger);
         } else if (moduleName.equals("help")) {

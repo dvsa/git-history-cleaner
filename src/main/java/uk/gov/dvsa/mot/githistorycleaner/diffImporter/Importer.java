@@ -5,6 +5,8 @@ import uk.gov.dvsa.mot.githistorycleaner.Module;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.DiffItem;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFile;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
+import uk.gov.dvsa.mot.githistorycleaner.config.PrivateRepositoryConfig;
+import uk.gov.dvsa.mot.githistorycleaner.config.PublicRepositoryConfig;
 
 import org.slf4j.Logger;
 
@@ -15,26 +17,28 @@ public class Importer implements Module {
     private Logger logger;
     private JsonFileDao<HistoryFile> jsonHistoryFileDao;
     private JsonFileDao<DiffItem[]> jsonDiffFileDao;
-    public static final String SKIP_OUTPUT_MESSAGE = "##SKIP";
-    private List<String> skippedHashes = Arrays.asList(
-            "be672b6eb00f35c58e6fa020b24945a77af91687",
-            "f62199d3dc535d0aba83ddc70df71b3852fa29c9",
-            "da41bb875c32f5a297845b0d2a5fbb9a70f722c6"
-    );
+    private PublicRepositoryConfig publicRepositoryConfig;
+    private PrivateRepositoryConfig privateRepositoryConfig;
+    private List<String> skippedCommits;
 
-    public Importer(Logger logger, JsonFileDao<HistoryFile> jsonHistoryFileDao, JsonFileDao<DiffItem[]> jsonDiffFileDao) {
+    public Importer(
+            Logger logger,
+            JsonFileDao<HistoryFile> jsonHistoryFileDao,
+            JsonFileDao<DiffItem[]> jsonDiffFileDao,
+            PublicRepositoryConfig publicRepositoryConfig,
+            PrivateRepositoryConfig privateRepositoryConfig) {
         this.logger = logger;
         this.jsonHistoryFileDao = jsonHistoryFileDao;
         this.jsonDiffFileDao = jsonDiffFileDao;
+        this.publicRepositoryConfig = publicRepositoryConfig;
+        this.privateRepositoryConfig = privateRepositoryConfig;
+        skippedCommits = Arrays.asList(privateRepositoryConfig.getSkippedCommits());
     }
 
     @Override
     public void execute(String[] args) {
-        String historyFilePath = args[1];
-        String diffFileName = args[2];
-
-        HistoryFile historyFile = jsonHistoryFileDao.get(historyFilePath);
-        DiffItem[] diff = jsonDiffFileDao.get(diffFileName);
+        HistoryFile historyFile = jsonHistoryFileDao.get(publicRepositoryConfig.getPublishingHistoryFileName());
+        DiffItem[] diff = jsonDiffFileDao.get(publicRepositoryConfig.getPublishingDiffFileName());
         int diffCount = diff.length;
         logger.info(String.format("%s commits with changed messages", diffCount));
 
@@ -49,19 +53,19 @@ public class Importer implements Module {
             }
         }
 
-        jsonHistoryFileDao.save(historyFilePath, historyFile);
+        jsonHistoryFileDao.save(publicRepositoryConfig.getPublishingHistoryFileName(), historyFile);
         logger.info("History file saved successfully");
     }
 
     private void setOutputMessage(HistoryItem historyItem, DiffItem diffItem) {
-        if(shouldSkipCommit(historyItem.getHash())){
-            historyItem.setOutputMessage(SKIP_OUTPUT_MESSAGE);
+        if (shouldSkipCommit(historyItem.getHash())) {
+            historyItem.setOutputMessage(publicRepositoryConfig.getSkippedCommitMessage());
         } else {
             historyItem.setOutputMessage(diffItem.getMessage());
         }
     }
 
     private boolean shouldSkipCommit(String hash) {
-        return skippedHashes.contains(hash);
+        return skippedCommits.contains(hash);
     }
 }

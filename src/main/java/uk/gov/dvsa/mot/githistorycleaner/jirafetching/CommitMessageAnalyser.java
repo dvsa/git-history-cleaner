@@ -13,7 +13,7 @@ public class CommitMessageAnalyser {
 
     public ArrayList<String> getJiraTicketNumberFromCommitMessage(String commitMessage) {
         Pattern patter = Pattern.compile(this.ticketNumberConfig);
-        Matcher matcher = patter.matcher(commitMessage);
+        Matcher matcher = patter.matcher(commitMessage.toUpperCase());
         ArrayList<String> tickets = new ArrayList<String>();
 
         while (matcher.find()) {

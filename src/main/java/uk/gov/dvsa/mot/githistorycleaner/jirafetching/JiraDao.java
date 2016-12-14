@@ -6,26 +6,24 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
 import java.util.Base64;
 
 public class JiraDao {
-    private static final String API_URL = "https://jira.i-env.net/rest/api/latest/issue/";
     private static final String HEADER_AUTHORIZATION = "Authorization";
     private static final String REQUEST_METHOD = "GET";
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
+    private final String jiraApiUrl;
     private JiraMapper mapper = new JiraMapper();
 
-    public JiraDao(String user, String pass) {
-        username = user;
-        password = pass;
+    public JiraDao(String username, String password, String jiraApiUrl) {
+        this.username = username;
+        this.password = password;
+        this.jiraApiUrl = jiraApiUrl;
     }
 
     public JiraDto fetchTicketByNumber(String ticketNumber) throws Exception {
         String ticket = getJiraTicket(ticketNumber);
-//         String ticket = getMock();
         return mapper.map(ticket);
     }
 
@@ -46,7 +44,7 @@ public class JiraDao {
     }
 
     private HttpURLConnection getHttpURLConnection(String urlToRead) throws IOException {
-        URL url = new URL(API_URL + urlToRead);
+        URL url = new URL(jiraApiUrl + urlToRead);
         return configureConnection((HttpURLConnection) url.openConnection());
     }
 
@@ -61,9 +59,5 @@ public class JiraDao {
     private String buildBasicAuthorizationString() {
         String credentials = username + ":" + password;
         return "Basic " + new String(Base64.getEncoder().encode(credentials.getBytes()));
-    }
-
-    private String getMock() throws IOException {
-        return new String(Files.readAllBytes(FileSystems.getDefault().getPath("/Users/witomirb/Mock")));
     }
 }

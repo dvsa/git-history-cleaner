@@ -1,13 +1,26 @@
 publicRepository:
-  path: "~/MOTDEV/test_repo2"
-  authorName: "DVSA <dvsa@dvsa.go.uk>"
-  #must be as json file
-  publishingHistoryFileName: "patch_history.json"
+  authorName: "DVSA"
+  authorEmail: "dvsa@dvsa.go.uk"
+  authorFullName: "DVSA <dvsa@dvsa.go.uk>"
+  initialCommitDate: "Wed Jun 17 14:00 2015 +0100"
+  publishingHistoryFileName: "mot-history.json"
+  publishingDiffFileName: "src/main/resources/diff.json"
+  publicRepoUrl: "git@github.com:KainosSoftwareLtd/dvsa-mot.git"
+  initialCommitMessage: "Application v1.9.5.4"
+  destinationBranchName: "the-new-master"
+  skippedCommitMessage: "##SKIP"
 
 privateRepository:
-  path: "~/MOTDEV/mot"
   patchFilePath: "/tmp/patch.patch"
+  firstCommitInRepository: "9a86b3d7741d84c6774b75319ccf6581d7adf5cd"
+  lastSquashedCommit: "61f3b67a5163087cdedb037074cc80a59842d151"
+  sourceBranchName: "master"
+  skippedCommits:
+    - "be672b6eb00f35c58e6fa020b24945a77af91687"
+    - "f62199d3dc535d0aba83ddc70df71b3852fa29c9"
+    - "da41bb875c32f5a297845b0d2a5fbb9a70f722c6"
 
 jira:
-  ticketNumberFormat: "((vm|bl|BL|MDM|VM)-[0-9]{1,6})"
+  ticketNumberFormat: "((BL|MDM|VM)-[0-9]{1,6})"
+  jiraApiUrl: "https://jira.i-env.net/rest/api/latest/issue/"
 
