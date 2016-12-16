@@ -1,0 +1,72 @@
+//FIXED VARIABLES
+
+String NODE = 'builder'
+String SOURCE_REPO_PATH = 'mot'
+
+//DEFINITIONS
+def check_out_repo(group, repo, gitbranch, creds){
+    checkout poll: false, scm: [$class: 'GitSCM', branches: [[name: gitbranch]], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: repo]], submoduleCfg: [], userRemoteConfigs: [[credentialsId: creds, url: 'git@gitlab.motdev.org.uk:' + group + '/' + repo +'.git']]]
+}
+
+node(NODE) {
+  wrap([$class: 'AnsiColorBuildWrapper', colorMapName: 'xterm']) {
+    stage 'Checkout GIT repos'
+    sh 'set +x; echo -e "\033[34mCheckout GIT repos\033[0m"'
+    env.WORKSPACE = pwd()
+    deleteDir()
+    check_out_repo('mot', 'mot', 'master', '313a82d3-f2e7-4787-837e-7517f3ce84eb')
+    check_out_repo('mot', 'git-history-cleaner', GIT_HISTORY_CLEANER_BRANCH, '313a82d3-f2e7-4787-837e-7517f3ce84eb')
+    stage 'Build JAVA app'
+    dir('git-history-cleaner') {
+      withEnv(['PATH=/usr/java/jdk1.8.0_60/bin/:$PATH']) {
+        sh './gradlew jar'
+      }
+    }
+
+    stage 'Anylyse merges'
+    dir('git-history-cleaner') {
+      sh "java -jar build/libs/git-history-cleaner-1.0.jar analyse-merges ${env.WORKSPACE}/"+SOURCE_REPO_PATH
+    }
+
+    stage 'Jira fetch'
+    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'jira_credentials', usernameVariable: 'jira_username', passwordVariable: 'jira_password']]) {
+      dir('git-history-cleaner') {
+        sh '''
+        java -jar build/libs/git-history-cleaner-1.0.jar jira-fetch ${jira_username} ${jira_password}
+        cat mot-commit-history.json
+        '''
+      }
+    }
+
+    stage 'Import diff'
+    dir('git-history-cleaner') {
+      sh """
+      java -jar build/libs/git-history-cleaner-1.0.jar import-diff
+      cat mot-commit-history.json
+      """
+    }
+
+    stage 'Initial squash'
+    dir('git-history-cleaner') {
+      sh "java -jar build/libs/git-history-cleaner-1.0.jar initial-squash ${env.WORKSPACE}/"+SOURCE_REPO_PATH
+    }
+
+    stage 'History rewrite'
+    dir('git-history-cleaner') {
+      sh "java -jar build/libs/git-history-cleaner-1.0.jar history-rewrite ${env.WORKSPACE}/"+SOURCE_REPO_PATH
+    }
+
+    if (PUBLISH_TO_GITHUB == "true") {
+      stage 'Publish to github'
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GITHUB_CREDENTIALS', usernameVariable: 'github_username', passwordVariable: 'github_password']]) {
+        dir('mot'){
+            sh'git push --force https://${github_username}:${github_password}@github.com/KainosSoftwareLtd/dvsa-mot.git'
+        }
+      }
+    }
+    else {
+      stage 'Do not publish to github'
+      echo "DO NOT PUBLISH!!!"
+    }
+  }
+}
