@@ -7,6 +7,7 @@ import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
 import uk.gov.dvsa.mot.githistorycleaner.jirafetching.CommitMessageAnalyser;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,7 +22,7 @@ public class Publisher implements Module {
     private Config config;
     private JsonFileDao<PatchHistory> jsonFileDao;
     private CommitMessageAnalyser commitMessageAnalyser;
-    private Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(Publisher.class);
     private String commit;
     private String repositoryPath;
 
@@ -29,14 +30,12 @@ public class Publisher implements Module {
             GitClient git,
             Config config,
             JsonFileDao<PatchHistory> jsonFileDao,
-            CommitMessageAnalyser commitMessageAnalyser,
-            Logger logger
+            CommitMessageAnalyser commitMessageAnalyser
     ) {
         this.git = git;
         this.config = config;
         this.jsonFileDao = jsonFileDao;
         this.commitMessageAnalyser = commitMessageAnalyser;
-        this.logger = logger;
     }
 
     @Override

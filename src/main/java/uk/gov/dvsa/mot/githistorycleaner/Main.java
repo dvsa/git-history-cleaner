@@ -4,6 +4,8 @@ import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.DiffItem;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFile;
 import uk.gov.dvsa.mot.githistorycleaner.config.Config;
 import uk.gov.dvsa.mot.githistorycleaner.config.ConfigLoader;
+import uk.gov.dvsa.mot.githistorycleaner.config.PrivateRepositoryConfig;
+import uk.gov.dvsa.mot.githistorycleaner.config.PublicRepositoryConfig;
 import uk.gov.dvsa.mot.githistorycleaner.continouspatching.PatchHistory;
 import uk.gov.dvsa.mot.githistorycleaner.continouspatching.Publisher;
 import uk.gov.dvsa.mot.githistorycleaner.diffImporter.Importer;
@@ -20,7 +22,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-
 
 public class Main {
     private static Logger logger = LoggerFactory.getLogger(Main.class);
@@ -39,46 +40,40 @@ public class Main {
             throw new RuntimeException(exception);
         }
 
+        GitClient git = new GitShellClient(new Shell());
         CommitMessageAnalyser commitMessageAnalyser = new CommitMessageAnalyser(config.getJiraCofig().getTicketNumberFormat());
-        Shell shell = new Shell(logger);
-
-        GitClient git = new GitShellClient(shell);
-        JsonFileDao historyFileDao = new JsonFileDao<>(HistoryFile.class);
+        JsonFileDao<HistoryFile> historyFileDao = new JsonFileDao<>(HistoryFile.class);
+        PrivateRepositoryConfig privateRepoConfig = config.getPrivateRepositoryConfig();
+        PublicRepositoryConfig publicRepoConfig = config.getPublicRepositoryConfig();
 
         String moduleName = args[0];
         Module module;
 
-        if (moduleName.equals("initial-squash")) {
-            module = new InitialSquasher(logger, new Shell(logger), config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
-        } else if (moduleName.equals("analyse-merges")) {
-            module = new MergeAnalyser(git, logger, historyFileDao, config.getPublicRepositoryConfig(), config.getPrivateRepositoryConfig());
-        } else if (moduleName.equals("jira-fetch")) {
-            String user = args[1];
-            String password = args[2];
-            module = new Fetcher(
-                    new JiraDao(user, password, config.getJiraCofig().getJiraApiUrl()),
-                    logger,
-                    historyFileDao,
-                    commitMessageAnalyser,
-                    config.getPublicRepositoryConfig().getPublishingHistoryFileName()
-            );
-        } else if (moduleName.equals("history-rewrite")) {
-            module = new Rewriter(git, historyFileDao, logger);
-        } else if (moduleName.equals("import-diff")) {
-            module = new Importer(
-                    logger,
-                    historyFileDao,
-                    new JsonFileDao<>(DiffItem[].class),
-                    config.getPublicRepositoryConfig(),
-                    config.getPrivateRepositoryConfig()
-            );
-        } else if (moduleName.equals("publish")) {
-            module = new Publisher(git, config, new JsonFileDao<>(PatchHistory.class), commitMessageAnalyser, logger);
-        } else if (moduleName.equals("help")) {
-            throw new NotImplementedException();
-        } else {
-            logger.error("Unrecognized module " + moduleName);
-            return;
+        switch (moduleName) {
+            case "initial-squash":
+                module = new InitialSquasher(git, publicRepoConfig, privateRepoConfig);
+                break;
+            case "analyse-merges":
+                module = new MergeAnalyser(git, historyFileDao, publicRepoConfig, privateRepoConfig);
+                break;
+            case "jira-fetch":
+                String user = args[1];
+                String password = args[2];
+                JiraDao jiraDao = new JiraDao(user, password, config.getJiraCofig().getJiraApiUrl());
+                module = new Fetcher(jiraDao, historyFileDao, commitMessageAnalyser, privateRepoConfig.getCommitHistoryFileName());
+                break;
+            case "history-rewrite":
+                module = new Rewriter(git, historyFileDao, privateRepoConfig, publicRepoConfig);
+                break;
+            case "import-diff":
+                module = new Importer(historyFileDao, new JsonFileDao<>(DiffItem[].class), publicRepoConfig, privateRepoConfig);
+                break;
+            case "publish":
+                module = new Publisher(git, config, new JsonFileDao<>(PatchHistory.class), commitMessageAnalyser);
+                break;
+            default:
+                logger.error("Unrecognized module " + moduleName);
+                return;
         }
 
         module.execute((args));

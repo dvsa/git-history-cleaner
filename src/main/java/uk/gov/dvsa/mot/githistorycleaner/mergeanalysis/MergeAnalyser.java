@@ -9,13 +9,14 @@ import uk.gov.dvsa.mot.githistorycleaner.config.PublicRepositoryConfig;
 import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MergeAnalyser implements Module {
     private GitClient git;
-    private Logger logger;
+    private static Logger logger = LoggerFactory.getLogger(MergeAnalyser.class);
     private JsonFileDao<HistoryFile> jsonFileDao;
     private final PublicRepositoryConfig publicRepositoryConfig;
     private final PrivateRepositoryConfig privateRepositoryConfig;
@@ -23,13 +24,11 @@ public class MergeAnalyser implements Module {
 
     public MergeAnalyser(
             GitClient git,
-            Logger logger,
             JsonFileDao<HistoryFile> jsonFileDao,
             PublicRepositoryConfig publicRepositoryConfig,
             PrivateRepositoryConfig privateRepositoryConfig
     ) {
         this.git = git;
-        this.logger = logger;
         this.jsonFileDao = jsonFileDao;
         this.publicRepositoryConfig = publicRepositoryConfig;
         this.privateRepositoryConfig = privateRepositoryConfig;
@@ -43,8 +42,8 @@ public class MergeAnalyser implements Module {
         HistoryFile historyFile = new HistoryFile();
         historyFile.setItems(history);
 
-        jsonFileDao.save(publicRepositoryConfig.getPublishingHistoryFileName(), historyFile);
-        logger.info(publicRepositoryConfig.getPublishingHistoryFileName() + " saved");
+        jsonFileDao.save(privateRepositoryConfig.getCommitHistoryFileName(), historyFile);
+        logger.info(privateRepositoryConfig.getCommitHistoryFileName() + " saved");
     }
 
     private List<HistoryItem> getMergesAndDirectCommitsToMaster(String gitRepositoryPath, String firstCommitHash) {

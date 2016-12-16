@@ -1,37 +1,35 @@
 package uk.gov.dvsa.mot.githistorycleaner.initialsquashing;
 
 import uk.gov.dvsa.mot.githistorycleaner.Module;
-import uk.gov.dvsa.mot.githistorycleaner.Shell;
 import uk.gov.dvsa.mot.githistorycleaner.config.PrivateRepositoryConfig;
 import uk.gov.dvsa.mot.githistorycleaner.config.PublicRepositoryConfig;
+import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
 
 import org.slf4j.Logger;
-
-import java.util.ArrayList;
+import org.slf4j.LoggerFactory;
 
 public class InitialSquasher implements Module {
-    private Logger logger;
-    private Shell shell;
+    private static final String CONFIG_REMOTE_ORIGIN_URL = "remote.origin.url";
+    private GitClient gitClient;
     private PublicRepositoryConfig publicRepositoryConfig;
     private PrivateRepositoryConfig privateRepositoryConfig;
-    private ArrayList<String[]> commands = new ArrayList<>();
+    private static Logger logger = LoggerFactory.getLogger(InitialSquasher.class);
+    private String publicRepoPath;
 
-    public InitialSquasher(Logger logger, Shell shell, PublicRepositoryConfig publicRepositoryConfig, PrivateRepositoryConfig privateRepositoryConfig) {
-        this.logger = logger;
-        this.shell = shell;
+    public InitialSquasher(GitClient gitClient, PublicRepositoryConfig publicRepositoryConfig, PrivateRepositoryConfig privateRepositoryConfig) {
+        this.gitClient = gitClient;
         this.publicRepositoryConfig = publicRepositoryConfig;
         this.privateRepositoryConfig = privateRepositoryConfig;
     }
 
     @Override
     public void execute(String[] args) {
-        String dir = args[1];
+        publicRepoPath = args[1];
 
         setCredentialsForRepo();
         squashRepo();
         recreateMasterAndChangeOrigin();
 
-        executeCommands(dir);
         logger.info(String.format(
                 "Done. Everything from commit \"%s\" to \"%s\" was squashed with message: %s",
                 privateRepositoryConfig.getFirstCommitInRepository(),
@@ -39,23 +37,17 @@ public class InitialSquasher implements Module {
                 publicRepositoryConfig.getInitialCommitMessage()
         ));
 
-        assertOriginIsChanged(dir);
+        assertOriginIsChanged();
     }
 
     private void setCredentialsForRepo() {
-        queueCommand("git", "config", "user.name", publicRepositoryConfig.getAuthorName());
-        queueCommand("git", "config", "user.email", publicRepositoryConfig.getAuthorEmail());
+        gitClient.setConfigValue(publicRepoPath, "user.name", publicRepositoryConfig.getAuthorName());
+        gitClient.setConfigValue(publicRepoPath, "user.email", publicRepositoryConfig.getAuthorEmail());
     }
 
-    private void executeCommands(String dir) {
-        for (String[] command : commands) {
-            String output = shell.executeCommand(dir, command);
-            logger.info(output);
-        }
-    }
+    private void assertOriginIsChanged() {
+        String currentRemote = gitClient.getConfigValue(publicRepoPath, CONFIG_REMOTE_ORIGIN_URL);
 
-    private void assertOriginIsChanged(String dir) {
-        String currentRemote = shell.executeCommand(dir, "git", "config", "--get", "remote.origin.url");
         if (!currentRemote.trim().equals(publicRepositoryConfig.getPublicRepoUrl())) {
             logger.error(String.format("Remote repo url was not set. Should be %s, but is %s", publicRepositoryConfig.getPublicRepoUrl(), currentRemote));
             throw new RuntimeException();
@@ -65,22 +57,19 @@ public class InitialSquasher implements Module {
     }
 
     private void recreateMasterAndChangeOrigin() {
-        queueCommand("git", "branch", "-D", publicRepositoryConfig.getDestinationBranchName());
-        queueCommand("git", "checkout", "-b", publicRepositoryConfig.getDestinationBranchName());
-        queueCommand("git", "remote", "set-url", "origin", publicRepositoryConfig.getPublicRepoUrl());
+        gitClient.gitDeleteBranch(publicRepoPath, publicRepositoryConfig.getDestinationBranchName());
+        gitClient.createBranch(publicRepoPath, publicRepositoryConfig.getDestinationBranchName());
+        gitClient.setOrigin(publicRepoPath, publicRepositoryConfig.getPublicRepoUrl());
     }
 
     private void squashRepo() {
-        queueCommand("git", "checkout", privateRepositoryConfig.getLastSquashedCommit());
-        queueCommand("git", "reset", "--soft", privateRepositoryConfig.getFirstCommitInRepository());
-        queueCommand("git", "commit", "--amend",
-                "--date", publicRepositoryConfig.getInitialCommitDate(),
-                "--author", publicRepositoryConfig.getAuthorFullName(),
-                "-m", publicRepositoryConfig.getInitialCommitMessage()
+        gitClient.checkoutCommit(publicRepoPath, privateRepositoryConfig.getLastSquashedCommit());
+        gitClient.softReset(publicRepoPath, privateRepositoryConfig.getFirstCommitInRepository());
+        gitClient.commit(
+                publicRepoPath,
+                publicRepositoryConfig.getInitialCommitMessage(),
+                publicRepositoryConfig.getAuthorFullName(),
+                publicRepositoryConfig.getInitialCommitDate()
         );
-    }
-
-    private void queueCommand(String... command) {
-        commands.add(command);
     }
 }

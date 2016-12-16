@@ -12,6 +12,8 @@ public class PrivateRepositoryConfig {
     @JsonProperty
     private String sourceBranchName;
     @JsonProperty
+    private String commitHistoryFileName;
+    @JsonProperty
     private String[] skippedCommits;
 
     public String getPatchFilePath() {
@@ -32,5 +34,8 @@ public class PrivateRepositoryConfig {
 
     public String[] getSkippedCommits() {
         return skippedCommits;
+    }
+    public String getCommitHistoryFileName() {
+        return commitHistoryFileName;
     }
 }

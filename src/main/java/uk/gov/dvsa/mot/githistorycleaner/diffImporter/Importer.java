@@ -9,25 +9,25 @@ import uk.gov.dvsa.mot.githistorycleaner.config.PrivateRepositoryConfig;
 import uk.gov.dvsa.mot.githistorycleaner.config.PublicRepositoryConfig;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class Importer implements Module {
-    private Logger logger;
     private JsonFileDao<HistoryFile> jsonHistoryFileDao;
+
+    private static Logger logger = LoggerFactory.getLogger(Importer.class);
     private JsonFileDao<DiffItem[]> jsonDiffFileDao;
     private PublicRepositoryConfig publicRepositoryConfig;
     private PrivateRepositoryConfig privateRepositoryConfig;
     private List<String> skippedCommits;
 
     public Importer(
-            Logger logger,
             JsonFileDao<HistoryFile> jsonHistoryFileDao,
             JsonFileDao<DiffItem[]> jsonDiffFileDao,
             PublicRepositoryConfig publicRepositoryConfig,
             PrivateRepositoryConfig privateRepositoryConfig) {
-        this.logger = logger;
         this.jsonHistoryFileDao = jsonHistoryFileDao;
         this.jsonDiffFileDao = jsonDiffFileDao;
         this.publicRepositoryConfig = publicRepositoryConfig;
@@ -37,7 +37,7 @@ public class Importer implements Module {
 
     @Override
     public void execute(String[] args) {
-        HistoryFile historyFile = jsonHistoryFileDao.get(publicRepositoryConfig.getPublishingHistoryFileName());
+        HistoryFile historyFile = jsonHistoryFileDao.get(privateRepositoryConfig.getCommitHistoryFileName());
         DiffItem[] diff = jsonDiffFileDao.get(publicRepositoryConfig.getPublishingDiffFileName());
         int diffCount = diff.length;
         logger.info(String.format("%s commits with changed messages", diffCount));
@@ -53,7 +53,7 @@ public class Importer implements Module {
             }
         }
 
-        jsonHistoryFileDao.save(publicRepositoryConfig.getPublishingHistoryFileName(), historyFile);
+        jsonHistoryFileDao.save(privateRepositoryConfig.getCommitHistoryFileName(), historyFile);
         logger.info("History file saved successfully");
     }
 

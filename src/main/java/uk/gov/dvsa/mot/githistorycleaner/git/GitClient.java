@@ -16,4 +16,7 @@ public interface GitClient {
     String log (String repoPath, String... options);
     String getCurrentCommitHash(String repoPath);
     void cherryPick(String repoPath, String commit);
+    void setConfigValue(String repoPath, String key, String value);
+    String getConfigValue(String repoPath, String key);
+    void setOrigin(String repoPath, String originUrl);
 }

@@ -1,17 +1,18 @@
 publicRepository:
   authorName: "DVSA"
-  authorEmail: "dvsa@dvsa.go.uk"
-  authorFullName: "DVSA <dvsa@dvsa.go.uk>"
+  authorEmail: "dvsa@dvsa.gov.uk"
+  authorFullName: "DVSA <dvsa@dvsa.gov.uk>"
   initialCommitDate: "Wed Jun 17 14:00 2015 +0100"
-  publishingHistoryFileName: "mot-history.json"
+  publishingHistoryFileName: "patch-history.json"
   publishingDiffFileName: "src/main/resources/diff.json"
-  publicRepoUrl: "git@github.com:KainosSoftwareLtd/dvsa-mot.git"
+  publicRepoUrl: "https://github.com/KainosSoftwareLtd/dvsa-mot.git"
   initialCommitMessage: "Application v1.9.5.4"
   destinationBranchName: "the-new-master"
   skippedCommitMessage: "##SKIP"
 
 privateRepository:
   patchFilePath: "/tmp/patch.patch"
+  commitHistoryFileName: "mot-commit-history.json"
   firstCommitInRepository: "9a86b3d7741d84c6774b75319ccf6581d7adf5cd"
   lastSquashedCommit: "61f3b67a5163087cdedb037074cc80a59842d151"
   sourceBranchName: "master"

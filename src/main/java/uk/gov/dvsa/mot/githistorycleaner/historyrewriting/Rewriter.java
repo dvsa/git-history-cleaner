@@ -4,9 +4,12 @@ import uk.gov.dvsa.mot.githistorycleaner.JsonFileDao;
 import uk.gov.dvsa.mot.githistorycleaner.Module;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryFile;
 import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
+import uk.gov.dvsa.mot.githistorycleaner.config.PrivateRepositoryConfig;
+import uk.gov.dvsa.mot.githistorycleaner.config.PublicRepositoryConfig;
 import uk.gov.dvsa.mot.githistorycleaner.git.GitClient;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,32 +17,34 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Rewriter implements Module {
-    GitClient git;
-    JsonFileDao<HistoryFile> historyFileDao;
-    Logger logger;
-    String privateRepository;
-    String publicBranch;
-    String authorName = "DVSA <dvsa@dvsa.go.uk>";
-    String tmpBranch = "temporary-history-rewrite-branch";
+    private GitClient git;
+    private JsonFileDao<HistoryFile> historyFileDao;
+    private PrivateRepositoryConfig privateRepositoryConfig;
+    private PublicRepositoryConfig publicRepositoryConfig;
+
+    private static Logger logger = LoggerFactory.getLogger(Rewriter.class);
+    private String privateRepository;
+    private String publicBranch;
+    private String tmpBranch = "temporary-history-rewrite-branch";
 
     public Rewriter(
             GitClient git,
             JsonFileDao<HistoryFile> historyFileDao,
-            Logger logger
-    ) {
+            PrivateRepositoryConfig privateRepositoryConfig, PublicRepositoryConfig publicRepositoryConfig) {
         this.git = git;
         this.historyFileDao = historyFileDao;
-        this.logger = logger;
+        this.privateRepositoryConfig = privateRepositoryConfig;
+        this.publicRepositoryConfig = publicRepositoryConfig;
     }
 
     @Override
     public void execute(String[] args) {
         privateRepository = args[1];
-        String historyFilePath = args[3];
-        publicBranch = args[3];
-        String startCommit = args[4];
+        String historyFilePath = privateRepositoryConfig.getCommitHistoryFileName();
+        publicBranch = publicRepositoryConfig.getDestinationBranchName();
+        String startCommit = privateRepositoryConfig.getLastSquashedCommit();
         // continuing history rewrite from a commit is optional
-        String continueFromCommit = args.length == 6 ?  args[5] : "";
+        String continueFromCommit = args.length == 3 ?  args[2] : "";
 
         List<HistoryItem> items = getCommitsData(historyFilePath);
 
@@ -94,7 +99,7 @@ public class Rewriter implements Module {
     private void copySingleMergeToPublicRepo(HistoryItem currentCommitData, String olderCommit) {
         git.checkoutCommit(privateRepository, currentCommitData.getHash());
         git.softReset(privateRepository, olderCommit);
-        git.commit(privateRepository, currentCommitData.getOutputMessage(), authorName, currentCommitData.getDate());
+        git.commit(privateRepository, currentCommitData.getOutputMessage(), publicRepositoryConfig.getAuthorFullName(), currentCommitData.getDate());
 
         String commitForCherryPick = git.getCurrentCommitHash(privateRepository);
 
@@ -117,7 +122,7 @@ public class Rewriter implements Module {
 
         git.checkoutBranch(privateRepository, publicBranch);
 
-        git.mergeBranch(privateRepository, publicBranch, featureBranch, authorName, currentCommitData.getDate());
+        git.mergeBranch(privateRepository, publicBranch, featureBranch, publicRepositoryConfig.getAuthorFullName(), currentCommitData.getDate());
 
         if (storyNumber.equals("")) {
             git.amendCommitMessage(privateRepository, currentCommitData.getOriginalMessage());

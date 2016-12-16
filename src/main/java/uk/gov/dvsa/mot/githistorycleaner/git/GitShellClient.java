@@ -114,4 +114,19 @@ public class GitShellClient implements GitClient {
     public void cherryPick(String repoPath, String commit) {
         shell.executeCommand(repoPath, "git", "cherry-pick", commit);
     }
+
+    @Override
+    public void setConfigValue(String repoPath, String key, String value) {
+        shell.executeCommand(repoPath, "git", "config", key, value);
+    }
+
+    @Override
+    public String getConfigValue(String repoPath, String key) {
+        return shell.executeCommand(repoPath, "git", "config", "--get", "remote.origin.url");
+    }
+
+    @Override
+    public void setOrigin(String repoPath, String originUrl) {
+        shell.executeCommand(repoPath, "git", "remote", "set-url", "origin", originUrl);
+    }
 }

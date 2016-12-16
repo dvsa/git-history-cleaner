@@ -1,6 +1,7 @@
 package uk.gov.dvsa.mot.githistorycleaner;
 
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,12 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Shell {
-    Runtime r = Runtime.getRuntime();
-    Logger logger;
-
-    public Shell(Logger logger) {
-        this.logger = logger;
-    }
+    private static Logger logger = LoggerFactory.getLogger(Shell.class);
 
     public String executeCommand(String dir, String... command) {
         return executeCommand(false, dir, command);

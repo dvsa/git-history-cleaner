@@ -1,15 +1,15 @@
 package uk.gov.dvsa.mot.githistorycleaner.mergeanalysis;
 
+import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.gov.dvsa.mot.githistorycleaner.Main;
-import uk.gov.dvsa.mot.githistorycleaner.commitdefinition.HistoryItem;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HistoryItemFromCommitMapper {
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
+    private static Logger logger = LoggerFactory.getLogger(HistoryItemFromCommitMapper.class);
 
     public HistoryItem map(String commit) {
         HistoryItem historyItem = new HistoryItem();
