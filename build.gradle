@@ -4,7 +4,7 @@ version '1.0'
 apply plugin: 'java'
 apply plugin: 'application'
 
-mainClassName = 'uk.gov.dvsa.mot.githistorycleaner.Main'
+mainClassName = 'uk.gov.dvsa.mot.gitHistoryCleaner.Main'
 
 sourceCompatibility = 1.8
 
