@@ -1,5 +1,9 @@
 [
   {
+    "hash": "e7dd8480c45c50e35a4ce8efadb2f106782b4331",
+    "message": "Hotfix for starting a test with dvla vehicles when class added"
+  },
+  {
     "hash": "5d7f804adb48107856d075a24e312ba2cadefd61",
     "message": "Feature add autodocs testcase report generator"
   },

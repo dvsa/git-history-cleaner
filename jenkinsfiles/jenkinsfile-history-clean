@@ -48,6 +48,10 @@ node(NODE) {
 
     stage 'Initial squash'
     dir('git-history-cleaner') {
+      sh """
+        git config --global user.name DVSA
+        git config --global user.email dvsa@dvsa.gov.uk
+      """
       sh "java -jar build/libs/git-history-cleaner-1.0.jar initial-squash ${env.WORKSPACE}/"+SOURCE_REPO_PATH
     }
 
@@ -60,7 +64,8 @@ node(NODE) {
       stage 'Publish to github'
       withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GITHUB_CREDENTIALS', usernameVariable: 'github_username', passwordVariable: 'github_password']]) {
         dir('mot'){
-            sh'git push --force https://${github_username}:${github_password}@github.com/KainosSoftwareLtd/dvsa-mot.git'
+            sh 'git remote add public-origin https://${github_username}:${github_password}@github.com/KainosSoftwareLtd/dvsa-mot.git'
+            sh 'git push public-origin public-master:master --force'
         }
       }
     }
