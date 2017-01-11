@@ -62,9 +62,9 @@ node(NODE) {
 
     if (PUBLISH_TO_GITHUB == "true") {
       stage 'Publish to github'
-      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GITHUB_CREDENTIALS', usernameVariable: 'github_username', passwordVariable: 'github_password']]) {
+      withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dvsajenkins_github', usernameVariable: 'github_username', passwordVariable: 'github_password']]) {
         dir('mot'){
-            sh 'git remote add public-origin https://${github_username}:${github_password}@github.com/KainosSoftwareLtd/dvsa-mot.git'
+            sh 'git remote add public-origin https://${github_username}:${github_password}@github.com/dvsa/mot.git'
             sh 'git push public-origin public-master:master --force'
         }
       }
