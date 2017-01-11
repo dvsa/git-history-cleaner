@@ -25,12 +25,12 @@ node(NODE) {
       stage "Set remote to github"
       dir('mot'){
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GITHUB_CREDENTIALS', usernameVariable: 'github_username', passwordVariable: 'github_password']]) {
-          sh """
-          git remote add public-origin https://${github_username}:${github_password}@github.com/KainosSoftwareLtd/dvsa-mot.git'
+          sh '''
+          git remote add public-origin https://${github_username}:${github_password}@github.com/KainosSoftwareLtd/dvsa-mot.git
           git fetch public-origin
           git config --global user.name DVSA
           git config --global user.email dvsa@dvsa.gov.uk
-          """
+          '''
         }
       }
 
