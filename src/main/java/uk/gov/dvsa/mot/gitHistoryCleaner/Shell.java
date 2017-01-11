@@ -37,12 +37,21 @@ public class Shell {
             String output = stringBuffer.toString();
 
             if (!silent) {
-                logger.info("GIT OUTPUT: " + output);
+                logger.info("GIT OUTPUT: " + filterOutput(output));
             }
 
             return output;
         } catch (IOException | InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String filterOutput(String output) {
+        String identifier = "github";
+        if(output.contains(identifier)){
+            return output.replaceAll(".*github", "****");
+        }
+
+        return output;
     }
 }
