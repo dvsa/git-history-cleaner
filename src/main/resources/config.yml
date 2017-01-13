@@ -5,7 +5,6 @@ publicRepository:
   initialCommitDate: "Wed Jun 17 14:00 2015 +0100"
   publishingHistoryFileName: "patch-history.json"
   publishingDiffFileName: "src/main/resources/diff.json"
-  publicRepoUrl: "https://github.com/KainosSoftwareLtd/dvsa-mot.git"
   initialCommitMessage: "Application v1.9.5.4"
   destinationBranchName: "public-master"
   destinationRemoteBranchName: "master"

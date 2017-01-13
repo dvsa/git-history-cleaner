@@ -14,8 +14,6 @@ public class PublicRepositoryConfig {
     @JsonProperty
     private String initialCommitDate;
     @JsonProperty
-    private String publicRepoUrl;
-    @JsonProperty
     private String publishingHistoryFileName;
     @JsonProperty
     private String publishingDiffFileName;
@@ -44,10 +42,6 @@ public class PublicRepositoryConfig {
 
     public String getInitialCommitDate() {
         return initialCommitDate;
-    }
-
-    public String getPublicRepoUrl() {
-        return publicRepoUrl;
     }
 
     public String getPublishingHistoryFileName() {
