@@ -6,27 +6,15 @@ Git history is fetched from **Private repository**, changed and then published i
 
 Package contains set of tools to perform steps in order to publish clean history in **Public Repository**. All tools are modules in Java CLI application, you can pick module providing it's name/alias as argument.
 
-- **Initial Squasher** - squash first commits in repository as initial commit
-
 - **Merge Analyser** - create history of commits to your master branch and save to **History File**
 
 - **Jira Fetcher** - fetch Jira ticket names for items in **History File**
 
+- **Initial Squasher** - squash first commits in repository as initial commit
+
 - **History Rewriter** - rewrite commit history from one repository to another based on **History File**
  
 - **Continous Publisher** - keep two repositories in sync, updating public repository with clean merges from private (similar to **History Rewriter** but meant to be run on regular basis)
-
-
-## Initial Squasher
-
-With this tool you can squash some first commits in **Private Repository** in to single "initial commit". 
-
-The range squashed as initial commit is set up in configuration *privateRepository* section: *firstCommitInRepository* is start and *lastSquashedCommit* is end of this range.
-
-### Run
-```
-java -jar git-history-cleaner.jar initial-squash
-```
 
 ## Merge Analyser
 Writes commit history to **History File**. Only direct commits to branch are fetched (--first-parent). 
@@ -71,6 +59,17 @@ java -jar git-history-cleaner.jar import-diff
 
 Diff importer fetches commit messages to be amended from /resources/diff.json.
 Amended history is saved in **History File**.
+
+## Initial Squasher
+
+With this tool you can squash some first commits in **Private Repository** in to single "initial commit". 
+
+The range squashed as initial commit is set up in configuration *privateRepository* section: *firstCommitInRepository* is start and *lastSquashedCommit* is end of this range.
+
+### Run
+```
+java -jar git-history-cleaner.jar initial-squash
+```
 
 ## History Rewriter
 History Rewriter is main tool in this set. It recreates history of one **Private Repository** to **Public Repository**. History should be prepared in **History File** using **Merge Analyser** and **Jira Fetcher** (optional).
@@ -168,3 +167,6 @@ jira:
 
 ## Jenkins job example
 @todo or not @todo?
+
+## Notes
+Any part of this tool can't fail on GIT error, because some errors are desired and others not. Tool is not advanced enough to distinguish between those errors.
